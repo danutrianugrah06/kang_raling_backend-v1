@@ -17,6 +17,10 @@ class DataPengelolaanSampah extends Model
         'keterangan',
     ];
 
+    protected $casts = [
+        'jumlah' => 'decimal:2',
+    ];
+
     public function dataSampah()
     {
         return $this->belongsTo(DataSampah::class);

@@ -25,6 +25,7 @@ class DataSampah extends Model
     protected $casts = [
         'tanggal'     => 'date',
         'verified_at' => 'datetime',
+        'jumlah' => 'decimal:2',
     ];
 
     public function desa()

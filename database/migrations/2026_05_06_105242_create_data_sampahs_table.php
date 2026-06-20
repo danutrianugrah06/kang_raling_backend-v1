@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('jenis_sampah_id')->constrained('jenis_sampahs');
             $table->date('tanggal');
-            $table->integer('jumlah'); // dalam KG
+            $table->decimal('jumlah', 8, 2); // dalam KG
             $table->enum('status', ['pending', 'verified', 'rejected'])->default('pending');
             $table->foreignId('verified_by')->nullable()->constrained('users')->nullOnDelete();
             $table->text('catatan_penolakan')->nullable();

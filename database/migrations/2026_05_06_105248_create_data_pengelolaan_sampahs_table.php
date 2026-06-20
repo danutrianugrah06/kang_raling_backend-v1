@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('data_sampah_id')->constrained('data_sampahs')->cascadeOnDelete();
             $table->foreignId('jenis_pengelolaan_id')->constrained('jenis_pengelolaans');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->integer('jumlah'); // dalam KG
+            $table->decimal('jumlah', 8, 2); // dalam KG
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

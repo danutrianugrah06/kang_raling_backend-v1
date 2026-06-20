@@ -6,17 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $fillable = [
         'nama',
         'email',
         'password',
-        'role',
-        'is_active',
     ];
 
     protected $hidden = [
@@ -24,10 +23,36 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password'          => 'hashed',
+        ];
+    }
 
+    // Helper methods via Spatie
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('Administrator');
+    }
+
+    public function isFasilitator(): bool
+    {
+        return $this->hasRole('Fasilitator');
+    }
+
+    public function isPimpinan(): bool
+    {
+        return $this->hasRole('Pimpinan');
+    }
+
+    public function isDeveloperEksternal(): bool
+    {
+        return $this->hasRole('Developer Eksternal');
+    }
+
+    // Relations
     public function artikels()
     {
         return $this->hasMany(Artikel::class);
@@ -56,15 +81,5 @@ class User extends Authenticatable
     public function apiKeys()
     {
         return $this->hasMany(ApiKey::class, 'generated_by');
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role === 'administrator';
-    }
-
-    public function isFasilitator(): bool
-    {
-        return $this->role === 'fasilitator';
     }
 }
