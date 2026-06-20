@@ -1,15 +1,11 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Kang Raling API",
-        "description": "Dokumentasi resmi API sistem **Kang Raling** (Kampung Ramah Lingkungan).\n\nSistem Informasi Monitoring Sampah untuk **Dinas Lingkungan Hidup Kabupaten Garut**, Jawa Barat.\n\nDikembangkan oleh **Danu Tri Anugrah** (NIM 3202316006), D3 Teknik Informatika, Politeknik Negeri Pontianak.\n\n---\n\n## Cara Penggunaan\n\n### 1. Auth Token (Dashboard)\nDipakai untuk semua endpoint dashboard. Didapat dari endpoint `POST /api/v1/login`.\n\n### 2. API Key Token (Interop)\nDipakai khusus untuk endpoint `/api/v1/interop/`. Didapat dari endpoint `POST /api/v1/developer/api-keys`.\n\nSetelah mendapat token, klik tombol **Authorize** di kanan atas dan masukkan token dengan format:\n```\nBearer {token_anda}\n```",
+        "title": "Kang Raling API Web Service",
+        "description": "Selamat datang di Dokumentasi Resmi Web Service **Kang Raling** (Kampung Ramah Lingkungan).\n\nAPI ini merupakan antarmuka integrasi data untuk Sistem Informasi Monitoring Sampah di lingkungan **Dinas Lingkungan Hidup (DLH) Kabupaten Garut**, Provinsi Jawa Barat.\n\n---\n\n## Panduan Autentikasi & Keamanan\n\nSebagian besar *endpoint* dalam API ini bersifat privat dan dienkripsi menggunakan metode otorisasi *HTTP Bearer Token*. Terdapat dua jenis token yang diizinkan oleh sistem:\n\n### 1. Internal Auth Token (Dashboard)\nDigunakan oleh pengguna sistem yang sah (Administrator/Fasilitator) untuk mengelola data operasional. Token bersifat dinamis dan diperoleh dengan mengirimkan kredensial melalui *endpoint* `POST /api/v1/login`.\n\n### 2. External API Key (Interop)\nDigunakan secara eksklusif untuk komunikasi antar-server (machine-to-machine), seperti integrasi dengan platform provinsi. Token ini dilindungi oleh pembatasan *Rate Limit* (maksimal 60 *request*/menit) dan berstatus *read-only*. API Key dapat digenerate oleh Administrator sistem pada menu pengembang.\n\n### Cara Melakukan Pengujian (Testing) API:\n1. Pastikan Anda telah memiliki salah satu token valid di atas.\n2. Klik tombol **Authorize** (ikon gembok hijau) di sudut kanan atas halaman ini.\n3. Masukkan token ke dalam form yang tersedia, lalu klik tombol **Authorize**.\n4. Sistem Swagger akan secara otomatis menyisipkan token tersebut ke setiap permintaan (request) yang Anda uji coba melalui tombol **Try it out**.",
         "contact": {
-            "name": "Danu Tri Anugrah",
-            "email": "danu@kangraling.id"
-        },
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
+            "name": "Developer Website Kang Raling",
+            "email": "danu3anugrah@gmail.com"
         },
         "version": "1.0.0"
     },
@@ -17,6 +13,10 @@
         {
             "url": "http://localhost:8000",
             "description": "Server Lokal Development"
+        },
+        {
+            "url": "https://kangraling.dlhgarut.id",
+            "description": "Server Utama (Production Dinas Lingkungan Hidup)"
         }
     ],
     "paths": {
@@ -315,80 +315,6 @@
                     },
                     "404": {
                         "description": "API Key tidak ditemukan"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/api-keys/toggle-active": {
-            "post": {
-                "tags": [
-                    "API Key & Log"
-                ],
-                "summary": "Toggle status aktif API Key (tidak didukung)",
-                "description": "Endpoint ini selalu mengembalikan pesan informatif bahwa status API Key dikelola otomatis oleh sistem berdasarkan masa kedaluwarsa (1 hari), bukan diatur manual.",
-                "operationId": "848922ca152cc85bf08ccf11994967f2",
-                "responses": {
-                    "200": {
-                        "description": "Informasi status otomatis",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Status otomatis dikelola sistem (1 Hari kedaluwarsa)."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/api-keys/reset": {
-            "post": {
-                "tags": [
-                    "API Key & Log"
-                ],
-                "summary": "Reset API Key (tidak didukung)",
-                "description": "Endpoint ini selalu mengembalikan error 422 dengan instruksi untuk menghapus API Key lama dan membuat token baru, karena reset token langsung tidak didukung demi keamanan.",
-                "operationId": "fa3ebb2231248abb642a402f29d6b981",
-                "responses": {
-                    "422": {
-                        "description": "Reset tidak didukung",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean",
-                                            "example": false
-                                        },
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Demi keamanan, hapus API Key ini dan buat token baru."
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
                     }
                 },
                 "security": [
@@ -4401,7 +4327,7 @@
                 ],
                 "summary": "Hapus role",
                 "description": "Menghapus role dari sistem. Role `Administrator` dan `Fasilitator` tidak bisa dihapus demi keamanan sistem.",
-                "operationId": "5855d93156fa8e21e7d1594aaa8fae03",
+                "operationId": "75ecc88582944afe06f34bfb6d62acff",
                 "parameters": [
                     {
                         "name": "id",
@@ -4833,21 +4759,6 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/api/v1/ping": {
-            "get": {
-                "tags": [
-                    "Publik"
-                ],
-                "summary": "Endpoint Tes (Dummy)",
-                "description": "Endpoint ini hanya untuk memancing mesin Swagger agar berhasil di-generate karena standar OpenAPI mewajibkan minimal ada 1 Path/Endpoint.",
-                "operationId": "ee069981c09e43e4c672e90ced080923",
-                "responses": {
-                    "200": {
-                        "description": "Berhasil"
-                    }
-                }
             }
         },
         "/api/v1/users": {

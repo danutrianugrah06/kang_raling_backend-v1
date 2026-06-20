@@ -182,49 +182,11 @@ class ApiKeyController extends Controller
         return response()->json(['status' => true, 'message' => 'API Key berhasil dihapus.']);
     }
 
-    #[OA\Post(
-        path: '/api/v1/api-keys/toggle-active',
-        summary: 'Toggle status aktif API Key (tidak didukung)',
-        description: 'Endpoint ini selalu mengembalikan pesan informatif bahwa status API Key dikelola otomatis oleh sistem berdasarkan masa kedaluwarsa (1 hari), bukan diatur manual.',
-        tags: ['API Key & Log'],
-        security: [['bearerAuth' => []]],
-        responses: [
-            new OA\Response(
-                response: 200,
-                description: 'Informasi status otomatis',
-                content: new OA\JsonContent(
-                    properties: [
-                        new OA\Property(property: 'status', type: 'boolean', example: true),
-                        new OA\Property(property: 'message', type: 'string', example: 'Status otomatis dikelola sistem (1 Hari kedaluwarsa).'),
-                    ]
-                )
-            ),
-        ]
-    )]
     public function toggleActive(): JsonResponse
     {
         return response()->json(['status' => true, 'message' => 'Status otomatis dikelola sistem (1 Hari kedaluwarsa).']);
     }
 
-    #[OA\Post(
-        path: '/api/v1/api-keys/reset',
-        summary: 'Reset API Key (tidak didukung)',
-        description: 'Endpoint ini selalu mengembalikan error 422 dengan instruksi untuk menghapus API Key lama dan membuat token baru, karena reset token langsung tidak didukung demi keamanan.',
-        tags: ['API Key & Log'],
-        security: [['bearerAuth' => []]],
-        responses: [
-            new OA\Response(
-                response: 422,
-                description: 'Reset tidak didukung',
-                content: new OA\JsonContent(
-                    properties: [
-                        new OA\Property(property: 'status', type: 'boolean', example: false),
-                        new OA\Property(property: 'message', type: 'string', example: 'Demi keamanan, hapus API Key ini dan buat token baru.'),
-                    ]
-                )
-            ),
-        ]
-    )]
     public function reset(): JsonResponse
     {
         return response()->json(['status' => false, 'message' => 'Demi keamanan, hapus API Key ini dan buat token baru.'], 422);

@@ -9,21 +9,22 @@ use OpenApi\Attributes as OA;
 
 #[OA\Info(
     version: "1.0.0",
-    title: "Kang Raling API",
-    description: "Dokumentasi resmi API sistem **Kang Raling** (Kampung Ramah Lingkungan).\n\nSistem Informasi Monitoring Sampah untuk **Dinas Lingkungan Hidup Kabupaten Garut**, Jawa Barat.\n\nDikembangkan oleh **Danu Tri Anugrah** (NIM 3202316006), D3 Teknik Informatika, Politeknik Negeri Pontianak.\n\n---\n\n## Cara Penggunaan\n\n### 1. Auth Token (Dashboard)\nDipakai untuk semua endpoint dashboard. Didapat dari endpoint `POST /api/v1/login`.\n\n### 2. API Key Token (Interop)\nDipakai khusus untuk endpoint `/api/v1/interop/`. Didapat dari endpoint `POST /api/v1/developer/api-keys`.\n\nSetelah mendapat token, klik tombol **Authorize** di kanan atas dan masukkan token dengan format:\n```\nBearer {token_anda}\n```",
+    title: "Kang Raling API Web Service",
+    description: "Selamat datang di Dokumentasi Resmi Web Service **Kang Raling** (Kampung Ramah Lingkungan).\n\nAPI ini merupakan antarmuka integrasi data untuk Sistem Informasi Monitoring Sampah di lingkungan **Dinas Lingkungan Hidup (DLH) Kabupaten Garut**, Provinsi Jawa Barat.\n\n---\n\n## Panduan Autentikasi & Keamanan\n\nSebagian besar *endpoint* dalam API ini bersifat privat dan dienkripsi menggunakan metode otorisasi *HTTP Bearer Token*. Terdapat dua jenis token yang diizinkan oleh sistem:\n\n### 1. Internal Auth Token (Dashboard)\nDigunakan oleh pengguna sistem yang sah (Administrator/Fasilitator) untuk mengelola data operasional. Token bersifat dinamis dan diperoleh dengan mengirimkan kredensial melalui *endpoint* `POST /api/v1/login`.\n\n### 2. External API Key (Interop)\nDigunakan secara eksklusif untuk komunikasi antar-server (machine-to-machine), seperti integrasi dengan platform provinsi. Token ini dilindungi oleh pembatasan *Rate Limit* (maksimal 60 *request*/menit) dan berstatus *read-only*. API Key dapat digenerate oleh Administrator sistem pada menu pengembang.\n\n### Cara Melakukan Pengujian (Testing) API:\n1. Pastikan Anda telah memiliki salah satu token valid di atas.\n2. Klik tombol **Authorize** (ikon gembok hijau) di sudut kanan atas halaman ini.\n3. Masukkan token ke dalam form yang tersedia, lalu klik tombol **Authorize**.\n4. Sistem Swagger akan secara otomatis menyisipkan token tersebut ke setiap permintaan (request) yang Anda uji coba melalui tombol **Try it out**.",
     contact: new OA\Contact(
-        name: "Danu Tri Anugrah",
-        email: "danu@kangraling.id"
+        name: "Developer Website Kang Raling",
+        email: "danu3anugrah@gmail.com"
     ),
-    license: new OA\License(
-        name: "MIT",
-        url: "https://opensource.org/licenses/MIT"
-    )
 )]
 #[OA\Server(
     url: "http://localhost:8000",
     description: "Server Lokal Development"
 )]
+#[OA\Server(
+    url: "https://kangraling.dlhgarut.id", 
+    description: "Server Utama (Production Dinas Lingkungan Hidup)"
+)]
+
 #[OA\SecurityScheme(
     securityScheme: "bearerAuth",
     type: "http",
@@ -51,22 +52,4 @@ use OpenApi\Attributes as OA;
 #[OA\Tag(name: "Developer Eksternal", description: "Generate dan kelola API token untuk integrasi dengan sistem eksternal. Membutuhkan Auth Token dengan permission `generate.api-token`.")]
 #[OA\Tag(name: "Laporan", description: "Lihat dan cetak laporan data sampah dan pengelolaan. Membutuhkan Auth Token dengan permission `view.laporan` atau `cetak.laporan`.")]
 #[OA\Tag(name: "Interop", description: "**Endpoint khusus untuk platform Sampah Kita Jabar (DLH Provinsi Jawa Barat).**\n\nMenggunakan **API Key Token** (bukan Auth Token biasa) dengan ability `sampah:read` atau `pengelolaan:read`.\n\nRate limit: **60 request per menit**.\n\nCara mendapatkan API Key: hubungi Administrator sistem Kang Raling atau gunakan endpoint `POST /api/v1/developer/api-keys`.")]
-class SwaggerDocs extends Controller
-{
-    // ==========================================================
-    // ENDPOINT DUMMY - JANGAN DIHAPUS SEBELUM ADA ENDPOINT ASLI
-    // ==========================================================
-    #[OA\Get(
-        path: '/api/v1/ping',
-        summary: 'Endpoint Tes (Dummy)',
-        description: 'Endpoint ini hanya untuk memancing mesin Swagger agar berhasil di-generate karena standar OpenAPI mewajibkan minimal ada 1 Path/Endpoint.',
-        tags: ['Publik'],
-        responses: [
-            new OA\Response(response: 200, description: 'Berhasil')
-        ]
-    )]
-    public function ping()
-    {
-        // Fungsi ini kosong tidak apa-apa, hanya untuk pancingan awal
-    }
-}
+class SwaggerDocs extends Controller {}
