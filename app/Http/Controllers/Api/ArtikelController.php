@@ -50,7 +50,7 @@ class ArtikelController extends Controller
         $data = Artikel::with('user')
             ->where('is_published', true)
             ->latest()
-            ->paginate(10);
+            ->paginate(9);
 
         return response()->json($data);
     }
@@ -229,8 +229,24 @@ class ArtikelController extends Controller
         ]);
 
         $gambar = $artikel->gambar;
+        
+        // 1. Jika ada upload file gambar baru
         if ($request->hasFile('gambar')) {
+            // Opsional (Clean Code): Hapus file fisik gambar lama di server agar tidak menuhin memori
+            if ($artikel->gambar) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($artikel->gambar);
+            }
+            // Simpan gambar baru
             $gambar = $request->file('gambar')->store('artikel', 'public');
+        } 
+        // 2. Jika tidak upload gambar baru, tapi ada sinyal untuk hapus gambar dari Vue
+        elseif ($request->has('remove_gambar') && ($request->remove_gambar === 'true' || $request->remove_gambar === '1')) {
+            // Hapus file fisik dari server
+            if ($artikel->gambar) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($artikel->gambar);
+            }
+            // Jadikan kolom database null (kosong)
+            $gambar = null;
         }
 
         $artikel->update([

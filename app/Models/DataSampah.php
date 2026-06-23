@@ -16,6 +16,7 @@ class DataSampah extends Model
         'tanggal',
         'jumlah',
         'status',
+        'is_public',
         'verified_by',
         'catatan_penolakan',
         'verified_at',

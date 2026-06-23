@@ -55,7 +55,8 @@ class EdukasiController extends Controller
             $query->where('kategori', $request->kategori);
         }
 
-        $data = $query->latest()->paginate(10);
+        $perPage = $request->input('per_page', 9);
+        $data = $query->latest()->paginate($perPage);
 
         return response()->json($data);
     }
@@ -148,25 +149,21 @@ class EdukasiController extends Controller
             'judul'      => 'required|string|max:255',
             'kategori'   => 'required|in:modul,video',
             'deskripsi'  => 'nullable|string',
-            'file_pdf'   => 'nullable|file|mimes:pdf',
-            'link_video' => 'nullable|url',
-            'gambar'     => 'nullable|image',
+            'file_pdf'   => 'nullable|file|mimes:pdf|max:20480', // Maks 20MB
+            'link_video' => 'nullable|file|mimes:mp4,webm,ogg|max:102400', // Maks 100MB
+            'gambar'     => 'nullable|image|max:10240', // Maks 10MB
         ]);
 
         if ($request->kategori === 'modul' && !$request->hasFile('file_pdf')) {
-            return response()->json([
-                'message' => 'File PDF wajib diupload untuk kategori modul.',
-            ], 422);
+            return response()->json(['message' => 'File PDF wajib diupload untuk kategori modul.'], 422);
         }
 
-        if ($request->kategori === 'video' && !$request->link_video) {
-            return response()->json([
-                'message' => 'Link YouTube wajib diisi untuk kategori video.',
-            ], 422);
+        // Ubah validasi: sekarang video wajib berupa file upload
+        if ($request->kategori === 'video' && !$request->hasFile('link_video')) {
+            return response()->json(['message' => 'File Video wajib diupload untuk kategori video.'], 422);
         }
 
         $slug = Str::slug($request->judul);
-
         $originalSlug = $slug;
         $count = 1;
         while (Edukasi::where('slug', $slug)->exists()) {
@@ -177,6 +174,12 @@ class EdukasiController extends Controller
         $file_pdf = null;
         if ($request->hasFile('file_pdf')) {
             $file_pdf = $request->file('file_pdf')->store('edukasi/pdf', 'public');
+        }
+
+        // Simpan file video ke storage lokal
+        $link_video = null;
+        if ($request->hasFile('link_video')) {
+            $link_video = $request->file('link_video')->store('edukasi/video', 'public');
         }
 
         $gambar = null;
@@ -191,12 +194,11 @@ class EdukasiController extends Controller
             'kategori'   => $request->kategori,
             'deskripsi'  => $request->deskripsi,
             'file_pdf'   => $file_pdf,
-            'link_video' => $request->link_video,
+            'link_video' => $link_video, // Sekarang berisi path file
             'gambar'     => $gambar,
         ]);
 
         ActivityLog::log('create_edukasi', 'Konten edukasi ' . $edukasi->judul . ' ditambahkan.', 'Edukasi', $edukasi->id);
-
         return response()->json(['message' => 'Konten edukasi berhasil ditambahkan.', 'data' => $edukasi], 201);
     }
 
@@ -242,7 +244,6 @@ class EdukasiController extends Controller
     {
         $edukasi = Edukasi::findOrFail($id);
 
-        // Ganti isFasilitator() lama ke hasRole() Spatie
         if (
             $request->user()->hasRole('Fasilitator')
             && !$request->user()->hasRole('Administrator')
@@ -255,9 +256,9 @@ class EdukasiController extends Controller
             'judul'      => 'required|string|max:255',
             'kategori'   => 'required|in:modul,video',
             'deskripsi'  => 'nullable|string',
-            'file_pdf'   => 'nullable|file|mimes:pdf',
-            'link_video' => 'nullable|url',
-            'gambar'     => 'nullable|image',
+            'file_pdf'   => 'nullable|file|mimes:pdf|max:20480',
+            'link_video' => 'nullable|file|mimes:mp4,webm,ogg|max:102400',
+            'gambar'     => 'nullable|image|max:10240',
         ]);
 
         $slug = Str::slug($request->judul);
@@ -268,14 +269,30 @@ class EdukasiController extends Controller
             $count++;
         }
 
+        // Handling File PDF
         $file_pdf = $edukasi->file_pdf;
         if ($request->hasFile('file_pdf')) {
+            if ($edukasi->file_pdf) \Illuminate\Support\Facades\Storage::disk('public')->delete($edukasi->file_pdf);
             $file_pdf = $request->file('file_pdf')->store('edukasi/pdf', 'public');
         }
 
+        // Handling File Video
+        $link_video = $edukasi->link_video;
+        if ($request->hasFile('link_video')) {
+            if ($edukasi->link_video && !str_starts_with($edukasi->link_video, 'http')) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($edukasi->link_video);
+            }
+            $link_video = $request->file('link_video')->store('edukasi/video', 'public');
+        }
+
+        // Handling Gambar
         $gambar = $edukasi->gambar;
         if ($request->hasFile('gambar')) {
+            if ($edukasi->gambar) \Illuminate\Support\Facades\Storage::disk('public')->delete($edukasi->gambar);
             $gambar = $request->file('gambar')->store('edukasi/gambar', 'public');
+        } elseif ($request->has('remove_gambar') && $request->remove_gambar === 'true') {
+            if ($edukasi->gambar) \Illuminate\Support\Facades\Storage::disk('public')->delete($edukasi->gambar);
+            $gambar = null;
         }
 
         $edukasi->update([
@@ -284,12 +301,11 @@ class EdukasiController extends Controller
             'kategori'   => $request->kategori,
             'deskripsi'  => $request->deskripsi,
             'file_pdf'   => $file_pdf,
-            'link_video' => $request->link_video ?? $edukasi->link_video,
+            'link_video' => $link_video,
             'gambar'     => $gambar,
         ]);
 
         ActivityLog::log('update_edukasi', 'Konten edukasi ' . $edukasi->judul . ' diperbarui.', 'Edukasi', $edukasi->id);
-
         return response()->json(['message' => 'Konten edukasi berhasil diperbarui.', 'data' => $edukasi]);
     }
 
@@ -317,7 +333,6 @@ class EdukasiController extends Controller
     {
         $edukasi = Edukasi::findOrFail($id);
 
-        // Ganti isFasilitator() lama ke hasRole() Spatie
         if (
             $request->user()->hasRole('Fasilitator')
             && !$request->user()->hasRole('Administrator')
@@ -326,10 +341,15 @@ class EdukasiController extends Controller
             return response()->json(['message' => 'Akses ditolak.'], 403);
         }
 
+        // Bersihkan semua file fisik dari server sebelum hapus database
+        if ($edukasi->file_pdf) \Illuminate\Support\Facades\Storage::disk('public')->delete($edukasi->file_pdf);
+        if ($edukasi->gambar) \Illuminate\Support\Facades\Storage::disk('public')->delete($edukasi->gambar);
+        if ($edukasi->link_video && !str_starts_with($edukasi->link_video, 'http')) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($edukasi->link_video);
+        }
+
         $edukasi->delete();
-
         ActivityLog::log('delete_edukasi', 'Konten edukasi ' . $edukasi->judul . ' dihapus.', 'Edukasi', $id);
-
         return response()->json(['message' => 'Konten edukasi berhasil dihapus.']);
     }
 }

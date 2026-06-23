@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->decimal('jumlah', 8, 2); // dalam KG
             $table->enum('status', ['pending', 'verified', 'rejected'])->default('pending');
+            $table->boolean('is_public')->default(true);
             $table->foreignId('verified_by')->nullable()->constrained('users')->nullOnDelete();
             $table->text('catatan_penolakan')->nullable();
             $table->timestamp('verified_at')->nullable();

@@ -12,7 +12,7 @@ use OpenApi\Attributes as OA;
 class DesaController extends Controller
 {
 
-#[OA\Get(
+    #[OA\Get(
         path: '/api/v1/desas',
         summary: 'Ambil semua desa binaan',
         description: 'Mengembalikan daftar semua desa binaan DLH Kabupaten Garut beserta profil TPS-nya. Tidak membutuhkan token — endpoint publik.',
@@ -45,9 +45,9 @@ class DesaController extends Controller
 
     public function index()
     {
-        $desas = Desa::with(['profilTps'])->get();
+        $desas = Desa::with(['profilTps'])->latest()->paginate(9);
 
-        return response()->json(['data' => $desas]);
+        return response()->json($desas);
     }
 
     #[OA\Get(
@@ -70,7 +70,9 @@ class DesaController extends Controller
                 description: 'Detail desa berhasil diambil',
                 content: new OA\JsonContent(
                     properties: [
-                        new OA\Property(property: 'data', type: 'object',
+                        new OA\Property(
+                            property: 'data',
+                            type: 'object',
                             properties: [
                                 new OA\Property(property: 'id', type: 'integer', example: 1),
                                 new OA\Property(property: 'nama_desa', type: 'string', example: 'Desa Sukamaju'),
@@ -118,7 +120,9 @@ class DesaController extends Controller
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: 'message', type: 'string', example: 'Desa berhasil ditambahkan.'),
-                        new OA\Property(property: 'data', type: 'object',
+                        new OA\Property(
+                            property: 'data',
+                            type: 'object',
                             properties: [
                                 new OA\Property(property: 'id', type: 'integer', example: 1),
                                 new OA\Property(property: 'nama_desa', type: 'string', example: 'Desa Sukamaju'),

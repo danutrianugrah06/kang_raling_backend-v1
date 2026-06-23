@@ -155,6 +155,9 @@ Route::prefix('v1')->group(function () {
             Route::post('/data-sampah/{id}/reject', [DataSampahController::class, 'reject']);
         });
 
+        Route::post('/data-sampah/{id}/cancel-verify', [DataSampahController::class, 'cancelVerify']);
+        Route::post('/data-sampah/{id}/toggle-publish', [DataSampahController::class, 'togglePublish']);
+
         // Manajemen User
         Route::middleware('permission:manajemen.user')->group(function () {
             Route::get('/users',                      [UserController::class, 'index']);

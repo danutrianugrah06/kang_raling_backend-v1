@@ -46,7 +46,7 @@ class GaleriController extends Controller
 
     public function index()
     {
-        $data = Galeri::with('user')->latest()->paginate(12);
+        $data = Galeri::with('user')->latest()->paginate(9);
 
         return response()->json($data);
     }
@@ -179,6 +179,20 @@ class GaleriController extends Controller
             'keterangan' => 'nullable|string',
         ]);
 
+        // ==========================================
+        // VALIDASI KEAMANAN TAMBAHAN (KHUSUS GALERI)
+        // ==========================================
+        // Jika frontend mengirim sinyal hapus gambar (remove_gambar = true) 
+        // TETAPI tidak ada file gambar baru yang diunggah, TOLAK!
+        if ($request->has('remove_gambar') && ($request->remove_gambar === 'true' || $request->remove_gambar === '1') && !$request->hasFile('gambar')) {
+            return response()->json([
+                'message' => 'Validasi gagal.',
+                'errors'  => [
+                    'gambar' => ['Foto galeri wajib ada. Jika dihapus, Anda harus mengunggah foto pengganti.']
+                ]
+            ], 422);
+        }
+
         // Tetapkan keterangan baru, atau gunakan yang lama jika tidak diubah
         $keterangan = $request->keterangan ?? $galeri->keterangan;
         
@@ -196,7 +210,11 @@ class GaleriController extends Controller
         // Cek apakah ada file gambar baru yang diunggah
         $gambar = $galeri->gambar; // Default: pakai nama file gambar lama
         if ($request->hasFile('gambar')) {
-            // Timpa dengan gambar baru
+            // Hapus file fisik gambar lama di server agar penyimpanan tidak penuh
+            if ($galeri->gambar) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($galeri->gambar);
+            }
+            // Timpa dengan file gambar baru
             $gambar = $request->file('gambar')->store('galeri', 'public');
         }
 
