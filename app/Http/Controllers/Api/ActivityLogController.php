@@ -12,7 +12,7 @@ use OpenApi\Attributes as OA;
 class ActivityLogController extends Controller
 {
     #[OA\Get(
-        path: '/api/v1/activity-logs',
+        path: '/activity-logs',
         summary: 'Ambil log aktivitas sistem',
         description: 'Mengembalikan riwayat aktivitas yang tercatat di sistem (login, logout, create, update, delete, dll) beserta pengguna yang melakukannya. Mendukung filter berdasarkan jenis aksi. Khusus Administrator.',
         tags: ['API Key & Log'],

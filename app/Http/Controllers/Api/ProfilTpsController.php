@@ -12,7 +12,7 @@ class ProfilTpsController extends Controller
 {
 
 #[OA\Get(
-        path: '/api/v1/profil-tps',
+        path: '/profil-tps',
         summary: 'Ambil semua profil TPS',
         description: 'Mengembalikan daftar semua Tempat Penampungan Sampah beserta relasi desanya. Membutuhkan Auth Token.',
         tags: ['Profil TPS'],
@@ -58,7 +58,7 @@ class ProfilTpsController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/profil-tps/{id}',
+        path: '/profil-tps/{id}',
         summary: 'Ambil detail profil TPS',
         description: 'Mengembalikan detail lengkap satu profil TPS berdasarkan ID beserta relasi desanya.',
         tags: ['Profil TPS'],
@@ -87,7 +87,7 @@ class ProfilTpsController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/profil-tps',
+        path: '/profil-tps',
         summary: 'Tambah profil TPS baru',
         description: 'Menambahkan profil TPS baru untuk desa tertentu. Gunakan `multipart/form-data` karena mendukung upload gambar.',
         tags: ['Profil TPS'],
@@ -154,7 +154,7 @@ class ProfilTpsController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/profil-tps/{id}',
+        path: '/profil-tps/{id}',
         summary: 'Update profil TPS (gunakan _method=PUT)',
         description: 'Mengupdate data profil TPS. Karena ada upload gambar, gunakan `multipart/form-data` dengan field `_method: PUT`.',
         tags: ['Profil TPS'],
@@ -233,7 +233,7 @@ class ProfilTpsController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/profil-tps/{id}',
+        path: '/profil-tps/{id}',
         summary: 'Hapus profil TPS',
         description: 'Menghapus profil TPS secara permanen. Khusus Administrator.',
         tags: ['Profil TPS'],

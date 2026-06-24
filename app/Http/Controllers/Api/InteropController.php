@@ -14,7 +14,7 @@ use OpenApi\Attributes as OA;
 class InteropController extends Controller
 {
     #[OA\Get(
-        path: '/api/v1/interop/data-sampah',
+        path: '/interop/data-sampah',
         summary: '[Sampah Kita Jabar] Ambil data sampah terverifikasi',
         description: "Endpoint khusus untuk diakses oleh Platform **Sampah Kita Jabar** (DLH Provinsi Jawa Barat).\n\nHanya mengembalikan data sampah yang sudah berstatus **verified**. Field response sudah difilter — hanya menampilkan data yang relevan untuk pihak ketiga, tidak ada data internal yang bocor.\n\n**Autentikasi:** Wajib menggunakan API Key Token dengan ability `sampah:read`.\n\n**Rate Limit:** 60 request per menit.",
         tags: ['Interop'],
@@ -122,7 +122,7 @@ class InteropController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/interop/data-pengelolaan',
+        path: '/interop/data-pengelolaan',
         summary: '[Sampah Kita Jabar] Ambil data pengelolaan sampah',
         description: "Endpoint khusus untuk diakses oleh Platform **Sampah Kita Jabar** (DLH Provinsi Jawa Barat).\n\nHanya mengembalikan data pengelolaan yang sumber data sampahnya sudah **verified**.\n\n**Autentikasi:** Wajib menggunakan API Key Token dengan ability `pengelolaan:read`.\n\n**Rate Limit:** 60 request per menit.",
         tags: ['Interop'],

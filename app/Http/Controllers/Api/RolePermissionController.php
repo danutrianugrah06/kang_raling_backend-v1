@@ -19,7 +19,7 @@ class RolePermissionController extends Controller
     // =============================================
 
     #[OA\Get(
-        path: '/api/v1/roles',
+        path: '/roles',
         summary: 'Ambil semua role',
         description: 'Mengembalikan daftar semua role beserta permission yang dimilikinya. Khusus Administrator dengan permission `kelola.role-permission`.',
         tags: ['Role & Permission'],

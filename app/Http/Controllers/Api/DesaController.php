@@ -13,7 +13,7 @@ class DesaController extends Controller
 {
 
     #[OA\Get(
-        path: '/api/v1/desas',
+        path: '/desas',
         summary: 'Ambil semua desa binaan',
         description: 'Mengembalikan daftar semua desa binaan DLH Kabupaten Garut beserta profil TPS-nya. Tidak membutuhkan token — endpoint publik.',
         tags: ['Publik'],
@@ -51,7 +51,7 @@ class DesaController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/desas/{slug}',
+        path: '/desas/{slug}',
         summary: 'Ambil detail desa binaan berdasarkan slug',
         description: 'Mengembalikan detail lengkap satu desa binaan beserta profil TPS-nya. Tidak membutuhkan token.',
         tags: ['Publik'],
@@ -98,7 +98,7 @@ class DesaController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/desas',
+        path: '/desas',
         summary: 'Tambah desa binaan baru',
         description: 'Menambahkan desa binaan baru ke sistem. Membutuhkan Auth Token dengan permission `kelola.desa-binaan`.',
         tags: ['Desa Binaan'],
@@ -167,7 +167,7 @@ class DesaController extends Controller
     }
 
     #[OA\Put(
-        path: '/api/v1/desas/{id}',
+        path: '/desas/{id}',
         summary: 'Update data desa binaan',
         description: 'Mengupdate nama dan alamat desa binaan. Slug akan otomatis di-generate ulang dari nama desa yang baru.',
         tags: ['Desa Binaan'],
@@ -230,7 +230,7 @@ class DesaController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/desas/{id}',
+        path: '/desas/{id}',
         summary: 'Hapus desa binaan',
         description: 'Menghapus desa binaan secara permanen. Khusus Administrator dengan permission `kelola.desa-binaan`.',
         tags: ['Desa Binaan'],

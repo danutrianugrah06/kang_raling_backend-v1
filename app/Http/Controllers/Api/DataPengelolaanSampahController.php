@@ -14,7 +14,7 @@ class DataPengelolaanSampahController extends Controller
 {
 
 #[OA\Get(
-        path: '/api/v1/data-pengelolaan',
+        path: '/data-pengelolaan',
         summary: 'Ambil semua data pengelolaan sampah',
         description: 'Mengembalikan daftar data pengelolaan sampah. Fasilitator hanya melihat data miliknya sendiri. Administrator melihat semua data. Mendukung pagination.',
         tags: ['Data Pengelolaan'],
@@ -76,7 +76,7 @@ class DataPengelolaanSampahController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/data-pengelolaan/{id}',
+        path: '/data-pengelolaan/{id}',
         summary: 'Ambil detail satu data pengelolaan',
         description: 'Mengembalikan detail lengkap satu data pengelolaan sampah. Fasilitator hanya bisa melihat data miliknya sendiri.',
         tags: ['Data Pengelolaan'],
@@ -122,7 +122,7 @@ class DataPengelolaanSampahController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/data-pengelolaan',
+        path: '/data-pengelolaan',
         summary: 'Input data pengelolaan sampah baru',
         description: 'Menambahkan data pengelolaan sampah baru. Data sampah sumber HARUS sudah berstatus `verified`. Jumlah pengelolaan tidak boleh melebihi jumlah pada data sampah sumber.',
         tags: ['Data Pengelolaan'],
@@ -218,7 +218,7 @@ class DataPengelolaanSampahController extends Controller
     }
 
     #[OA\Put(
-        path: '/api/v1/data-pengelolaan/{id}',
+        path: '/data-pengelolaan/{id}',
         summary: 'Update data pengelolaan sampah',
         description: 'Mengupdate data pengelolaan yang sudah ada. Jumlah tidak boleh melebihi jumlah data sampah sumber.',
         tags: ['Data Pengelolaan'],
@@ -291,7 +291,7 @@ class DataPengelolaanSampahController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/data-pengelolaan/{id}',
+        path: '/data-pengelolaan/{id}',
         summary: 'Hapus data pengelolaan sampah',
         description: 'Menghapus data pengelolaan secara permanen. Fasilitator hanya bisa hapus data miliknya sendiri.',
         tags: ['Data Pengelolaan'],

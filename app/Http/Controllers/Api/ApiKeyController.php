@@ -12,7 +12,7 @@ use OpenApi\Attributes as OA;
 class ApiKeyController extends Controller
 {
     #[OA\Get(
-        path: '/api/v1/api-keys',
+        path: '/api-keys',
         summary: 'Ambil semua API Key',
         description: 'Mengembalikan daftar API Key (token interop) yang sudah dibuat. Administrator melihat semua API Key dari semua developer eksternal, sedangkan Developer Eksternal hanya melihat API Key miliknya sendiri. Token login (`auth_token`) tidak ditampilkan di sini.',
         tags: ['API Key & Log'],
@@ -80,7 +80,7 @@ class ApiKeyController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/developer/api-keys',
+        path: '/developer/api-keys',
         summary: 'Generate API Key baru (Developer Eksternal)',
         description: "Membuat API Key baru untuk keperluan integrasi (interop). Token hanya memiliki ability `sampah:read` dan `pengelolaan:read` — TIDAK bisa mengakses endpoint dashboard.\n\n**Penting:** Token plaintext hanya ditampilkan SATU KALI saat dibuat. Simpan baik-baik, token tidak bisa dilihat ulang setelah response ini.\n\nMasa aktif token: **1 hari**, setelah itu harus generate ulang.",
         tags: ['Developer Eksternal'],
@@ -144,7 +144,7 @@ class ApiKeyController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/api-keys/{id}',
+        path: '/api-keys/{id}',
         summary: 'Hapus API Key',
         description: 'Mencabut/menghapus API Key secara permanen. Setelah dihapus, token tidak bisa lagi digunakan untuk mengakses endpoint interop. Administrator bisa hapus API Key milik siapapun, Developer Eksternal hanya bisa hapus miliknya sendiri.',
         tags: ['API Key & Log'],

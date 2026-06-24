@@ -14,7 +14,7 @@ class UserController extends Controller
 {
 
 #[OA\Get(
-        path: '/api/v1/users',
+        path: '/users',
         summary: 'Ambil semua pengguna',
         description: 'Mengembalikan daftar semua pengguna sistem dengan role masing-masing. Mendukung pencarian dan filter berdasarkan role. Khusus Administrator.',
         tags: ['Manajemen User'],
@@ -91,7 +91,7 @@ class UserController extends Controller
     }
 
      #[OA\Get(
-        path: '/api/v1/users/{id}',
+        path: '/users/{id}',
         summary: 'Ambil detail pengguna',
         description: 'Mengembalikan detail lengkap satu pengguna beserta role dan permission-nya.',
         tags: ['Manajemen User'],
@@ -152,7 +152,7 @@ class UserController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/users',
+        path: '/users',
         summary: 'Buat akun pengguna baru',
         description: 'Membuat akun pengguna baru dan langsung assign role. Satu akun bisa memiliki lebih dari satu role (Role Switcher). Khusus Administrator.',
         tags: ['Manajemen User'],
@@ -219,7 +219,7 @@ class UserController extends Controller
     }
 
     #[OA\Put(
-        path: '/api/v1/users/{id}',
+        path: '/users/{id}',
         summary: 'Update data pengguna',
         description: 'Mengupdate data pengguna. Semua field bersifat opsional (`sometimes`). Password hanya diupdate jika field `password` diisi. Role di-sync ulang jika field `roles` dikirim.',
         tags: ['Manajemen User'],
@@ -302,7 +302,7 @@ class UserController extends Controller
     }
 
      #[OA\Delete(
-        path: '/api/v1/users/{id}',
+        path: '/users/{id}',
         summary: 'Hapus pengguna',
         description: 'Menghapus akun pengguna secara permanen. Administrator tidak bisa menghapus akunnya sendiri.',
         tags: ['Manajemen User'],

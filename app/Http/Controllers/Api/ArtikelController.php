@@ -13,7 +13,7 @@ class ArtikelController extends Controller
 {
 
 #[OA\Get(
-        path: '/api/v1/artikels',
+        path: '/artikels',
         summary: 'Ambil semua artikel yang dipublikasikan',
         description: 'Mengembalikan daftar artikel yang sudah dipublikasikan (`is_published: true`) untuk ditampilkan di halaman publik. Tidak membutuhkan token.',
         tags: ['Publik'],
@@ -56,7 +56,7 @@ class ArtikelController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/artikels/{slug}',
+        path: '/artikels/{slug}',
         summary: 'Ambil detail artikel berdasarkan slug',
         description: 'Mengembalikan detail lengkap satu artikel berdasarkan slug. Digunakan untuk halaman detail artikel publik.',
         tags: ['Publik'],
@@ -95,7 +95,7 @@ class ArtikelController extends Controller
     }
 
      #[OA\Get(
-        path: '/api/v1/artikels/{id}/edit',
+        path: '/artikels/{id}/edit',
         summary: 'Ambil data artikel untuk form edit (dashboard)',
         description: 'Mengambil data artikel berdasarkan ID untuk keperluan form edit di dashboard. Fasilitator hanya bisa akses artikel miliknya sendiri.',
         tags: ['Artikel'],
@@ -123,7 +123,7 @@ class ArtikelController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/artikels',
+        path: '/artikels',
         summary: 'Tambah artikel baru',
         description: 'Menambahkan artikel baru. Request menggunakan `multipart/form-data` karena mendukung upload gambar.',
         tags: ['Artikel'],
@@ -180,7 +180,7 @@ class ArtikelController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/artikels/{id}',
+        path: '/artikels/{id}',
         summary: 'Update artikel (gunakan method spoofing _method=PUT)',
         description: 'Mengupdate artikel yang sudah ada. Karena ada upload file, gunakan `multipart/form-data` dengan tambahan field `_method: PUT` untuk method spoofing.',
         tags: ['Artikel'],
@@ -263,7 +263,7 @@ class ArtikelController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/artikels/{id}',
+        path: '/artikels/{id}',
         summary: 'Hapus artikel',
         description: 'Menghapus artikel secara permanen. Fasilitator hanya bisa hapus artikel miliknya sendiri.',
         tags: ['Artikel'],

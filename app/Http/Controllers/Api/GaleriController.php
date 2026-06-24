@@ -14,7 +14,7 @@ class GaleriController extends Controller
 {
 
 #[OA\Get(
-        path: '/api/v1/galeris',
+        path: '/galeris',
         summary: 'Ambil semua foto galeri',
         description: 'Mengembalikan daftar semua foto galeri untuk halaman publik. Tidak membutuhkan token. Hasil dipaginasi 12 foto per halaman.',
         tags: ['Publik'],
@@ -52,7 +52,7 @@ class GaleriController extends Controller
     }
 
      #[OA\Get(
-        path: '/api/v1/galeris/{slug}',
+        path: '/galeris/{slug}',
         summary: 'Ambil detail foto galeri berdasarkan slug',
         description: 'Mengembalikan detail satu foto galeri berdasarkan slug. Tidak membutuhkan token.',
         tags: ['Publik'],
@@ -75,7 +75,7 @@ class GaleriController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/galeris',
+        path: '/galeris',
         summary: 'Upload foto galeri baru',
         description: 'Mengunggah foto galeri baru. Request HARUS menggunakan `multipart/form-data` karena ada upload file gambar.',
         tags: ['Galeri'],
@@ -134,7 +134,7 @@ class GaleriController extends Controller
     }
 
      #[OA\Post(
-        path: '/api/v1/galeris/{id}',
+        path: '/galeris/{id}',
         summary: 'Update foto galeri (gunakan _method=PUT)',
         description: 'Mengupdate keterangan atau mengganti foto galeri. Gunakan `multipart/form-data` dengan field `_method: PUT`.',
         tags: ['Galeri'],
@@ -232,7 +232,7 @@ class GaleriController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/galeris/{id}',
+        path: '/galeris/{id}',
         summary: 'Hapus foto galeri',
         description: 'Menghapus foto galeri secara permanen. Fasilitator hanya bisa hapus foto miliknya sendiri.',
         tags: ['Galeri'],

@@ -12,7 +12,7 @@ class JenisPengelolaanController extends Controller
 {
 
 #[OA\Get(
-        path: '/api/v1/jenis-pengelolaan',
+        path: '/jenis-pengelolaan',
         summary: 'Ambil semua jenis pengelolaan sampah',
         description: 'Mengembalikan daftar semua jenis pengelolaan sampah yang tersedia (contoh: 3R, Kompos, Bank Sampah). Data ini digunakan sebagai referensi saat input data pengelolaan. Membutuhkan Auth Token.',
         tags: ['Jenis Pengelolaan'],
@@ -49,7 +49,7 @@ class JenisPengelolaanController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/jenis-pengelolaan',
+        path: '/jenis-pengelolaan',
         summary: 'Tambah jenis pengelolaan sampah baru',
         description: 'Menambahkan jenis pengelolaan sampah baru ke master data. Khusus Administrator dengan permission `kelola.jenis-pengelolaan`. Nama harus unik.',
         tags: ['Jenis Pengelolaan'],
@@ -118,10 +118,10 @@ class JenisPengelolaanController extends Controller
     }
 
     #[OA\Put(
-        path: '/api/v1/jenis-pengelolaan/{id}',
+        path: '/jenis-pengelolaan/{id}',
         summary: 'Update jenis pengelolaan sampah',
         description: 'Mengupdate nama dan deskripsi jenis pengelolaan. Nama harus tetap unik. Khusus Administrator.',
-        tags: ['Master Data'],
+        tags: ['Jenis Pengelolaan'],
         security: [['bearerAuth' => []]],
         parameters: [
             new OA\Parameter(
@@ -181,10 +181,10 @@ class JenisPengelolaanController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/jenis-pengelolaan/{id}',
+        path: '/jenis-pengelolaan/{id}',
         summary: 'Hapus jenis pengelolaan sampah',
         description: 'Menghapus jenis pengelolaan dari master data secara permanen. Pastikan tidak sedang digunakan di data pengelolaan manapun. Khusus Administrator.',
-        tags: ['Master Data'],
+        tags: ['Jenis Pengelolaan'],
         security: [['bearerAuth' => []]],
         parameters: [
             new OA\Parameter(

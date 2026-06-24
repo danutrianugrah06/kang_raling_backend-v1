@@ -20,14 +20,14 @@
         }
     ],
     "paths": {
-        "/api/v1/activity-logs": {
+        "/activity-logs": {
             "get": {
                 "tags": [
                     "API Key & Log"
                 ],
                 "summary": "Ambil log aktivitas sistem",
                 "description": "Mengembalikan riwayat aktivitas yang tercatat di sistem (login, logout, create, update, delete, dll) beserta pengguna yang melakukannya. Mendukung filter berdasarkan jenis aksi. Khusus Administrator.",
-                "operationId": "7ffa979005d9fbdb976e1faa5fe7ff2a",
+                "operationId": "f3145468a8270697db363d1cef912aa3",
                 "parameters": [
                     {
                         "name": "action",
@@ -102,14 +102,14 @@
                 ]
             }
         },
-        "/api/v1/api-keys": {
+        "/api-keys": {
             "get": {
                 "tags": [
                     "API Key & Log"
                 ],
                 "summary": "Ambil semua API Key",
                 "description": "Mengembalikan daftar API Key (token interop) yang sudah dibuat. Administrator melihat semua API Key dari semua developer eksternal, sedangkan Developer Eksternal hanya melihat API Key miliknya sendiri. Token login (`auth_token`) tidak ditampilkan di sini.",
-                "operationId": "ca4ad720137ef623b4825d172c443276",
+                "operationId": "b35df5b76a65bb259446547c3fd61f45",
                 "responses": {
                     "200": {
                         "description": "Daftar API Key berhasil diambil",
@@ -182,14 +182,14 @@
                 ]
             }
         },
-        "/api/v1/developer/api-keys": {
+        "/developer/api-keys": {
             "post": {
                 "tags": [
                     "Developer Eksternal"
                 ],
                 "summary": "Generate API Key baru (Developer Eksternal)",
                 "description": "Membuat API Key baru untuk keperluan integrasi (interop). Token hanya memiliki ability `sampah:read` dan `pengelolaan:read` — TIDAK bisa mengakses endpoint dashboard.\n\n**Penting:** Token plaintext hanya ditampilkan SATU KALI saat dibuat. Simpan baik-baik, token tidak bisa dilihat ulang setelah response ini.\n\nMasa aktif token: **1 hari**, setelah itu harus generate ulang.",
-                "operationId": "15eaf999db1352ccf0a77e05443fcd8b",
+                "operationId": "7509a53af876450e75c486169e284959",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -269,14 +269,14 @@
                 ]
             }
         },
-        "/api/v1/api-keys/{id}": {
+        "/api-keys/{id}": {
             "delete": {
                 "tags": [
                     "API Key & Log"
                 ],
                 "summary": "Hapus API Key",
                 "description": "Mencabut/menghapus API Key secara permanen. Setelah dihapus, token tidak bisa lagi digunakan untuk mengakses endpoint interop. Administrator bisa hapus API Key milik siapapun, Developer Eksternal hanya bisa hapus miliknya sendiri.",
-                "operationId": "6a657eaf618f566d844eb600c8a2e4aa",
+                "operationId": "1b44437ad6aa6798d9edc858c6ee98bc",
                 "parameters": [
                     {
                         "name": "id",
@@ -324,14 +324,14 @@
                 ]
             }
         },
-        "/api/v1/artikels": {
+        "/artikels": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil semua artikel yang dipublikasikan",
                 "description": "Mengembalikan daftar artikel yang sudah dipublikasikan (`is_published: true`) untuk ditampilkan di halaman publik. Tidak membutuhkan token.",
-                "operationId": "1bc7074a8736b47ac47a4a21b12907f9",
+                "operationId": "65d16f43aa0cc9da025baf4a3e4c9b5d",
                 "parameters": [
                     {
                         "name": "page",
@@ -405,7 +405,7 @@
                 ],
                 "summary": "Tambah artikel baru",
                 "description": "Menambahkan artikel baru. Request menggunakan `multipart/form-data` karena mendukung upload gambar.",
-                "operationId": "4361370413c705e8b9d12dfdde56e4af",
+                "operationId": "ff3951a75214621aa28a4fc2c861b79a",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -462,14 +462,14 @@
                 ]
             }
         },
-        "/api/v1/artikels/{slug}": {
+        "/artikels/{slug}": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil detail artikel berdasarkan slug",
                 "description": "Mengembalikan detail lengkap satu artikel berdasarkan slug. Digunakan untuk halaman detail artikel publik.",
-                "operationId": "e2c6125331a62131a3bfcac2a4c5f376",
+                "operationId": "98774d8812a66f2ca7b2694253973315",
                 "parameters": [
                     {
                         "name": "slug",
@@ -525,14 +525,14 @@
                 }
             }
         },
-        "/api/v1/artikels/{id}/edit": {
+        "/artikels/{id}/edit": {
             "get": {
                 "tags": [
                     "Artikel"
                 ],
                 "summary": "Ambil data artikel untuk form edit (dashboard)",
                 "description": "Mengambil data artikel berdasarkan ID untuk keperluan form edit di dashboard. Fasilitator hanya bisa akses artikel miliknya sendiri.",
-                "operationId": "e8fa585f75a2600f5bc14e05b50e987c",
+                "operationId": "0010498d4aa4a9537fdf2bf41e56293c",
                 "parameters": [
                     {
                         "name": "id",
@@ -566,14 +566,14 @@
                 ]
             }
         },
-        "/api/v1/artikels/{id}": {
+        "/artikels/{id}": {
             "post": {
                 "tags": [
                     "Artikel"
                 ],
                 "summary": "Update artikel (gunakan method spoofing _method=PUT)",
                 "description": "Mengupdate artikel yang sudah ada. Karena ada upload file, gunakan `multipart/form-data` dengan tambahan field `_method: PUT` untuk method spoofing.",
-                "operationId": "00a6733c5a48be269dbb52250e47c18a",
+                "operationId": "7502ceec95ca84fad198cf8f54f6461d",
                 "parameters": [
                     {
                         "name": "id",
@@ -653,7 +653,7 @@
                 ],
                 "summary": "Hapus artikel",
                 "description": "Menghapus artikel secara permanen. Fasilitator hanya bisa hapus artikel miliknya sendiri.",
-                "operationId": "891141632e35f40d93c67e360e163c03",
+                "operationId": "0936de3b6be5d8d671f0ba87a0dba79e",
                 "parameters": [
                     {
                         "name": "id",
@@ -686,14 +686,14 @@
                 ]
             }
         },
-        "/api/v1/login": {
+        "/login": {
             "post": {
                 "tags": [
                     "Auth & Akun"
                 ],
                 "summary": "Login ke dashboard",
                 "description": "Melakukan autentikasi pengguna dan mengembalikan Bearer Token untuk mengakses semua endpoint protected. Token berlaku selama 7 hari.",
-                "operationId": "b9b760991d94b179960cd7ddc93eedf2",
+                "operationId": "67d6d0fdd54fba132e1b6f55ca254183",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -816,14 +816,14 @@
                 }
             }
         },
-        "/api/v1/logout": {
+        "/logout": {
             "post": {
                 "tags": [
                     "Auth & Akun"
                 ],
                 "summary": "Logout dari dashboard",
                 "description": "Menghapus token aktif pengguna yang sedang login. Token tidak bisa digunakan lagi setelah logout.",
-                "operationId": "b66dd8a7864f561822c01bc8339363fb",
+                "operationId": "28d48c13fca984400ac8de99f54ee13a",
                 "responses": {
                     "200": {
                         "description": "Logout berhasil",
@@ -856,14 +856,14 @@
                 ]
             }
         },
-        "/api/v1/me": {
+        "/me": {
             "get": {
                 "tags": [
                     "Auth & Akun"
                 ],
                 "summary": "Ambil data profil pengguna yang sedang login",
                 "description": "Mengembalikan data lengkap pengguna yang sedang terautentikasi, termasuk semua role dan permission yang dimiliki.",
-                "operationId": "c24e88aea4324667c5f4e38549a5298f",
+                "operationId": "bc2032a379aa97707ccc61511897c120",
                 "responses": {
                     "200": {
                         "description": "Data profil berhasil diambil",
@@ -925,14 +925,14 @@
                 ]
             }
         },
-        "/api/v1/me/update-profile": {
+        "/me/update-profile": {
             "patch": {
                 "tags": [
                     "Auth & Akun"
                 ],
                 "summary": "Perbarui nama dan email profil",
                 "description": "Mengupdate data nama dan email pengguna yang sedang login.",
-                "operationId": "777503f7922c74e034648bce00e26349",
+                "operationId": "e49d53ae4f498564b38ce0109ef8b588",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -996,14 +996,14 @@
                 ]
             }
         },
-        "/api/v1/me/update-password": {
+        "/me/update-password": {
             "patch": {
                 "tags": [
                     "Auth & Akun"
                 ],
                 "summary": "Perbarui password akun",
                 "description": "Mengubah password pengguna yang sedang login. Wajib memasukkan password lama yang benar sebelum bisa ganti password baru.",
-                "operationId": "2974a155e3e71163f2ad5490f1026c49",
+                "operationId": "c144dc4a4daf0cf3d47b29e89383320e",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1071,81 +1071,14 @@
                 ]
             }
         },
-        "/api/v1/dashboard": {
-            "get": {
-                "tags": [
-                    "Dashboard"
-                ],
-                "summary": "Ambil data ringkasan dashboard",
-                "description": "Mengembalikan statistik ringkasan untuk halaman utama dashboard: total data sampah, total desa binaan, total artikel, total galeri, total edukasi, dan grafik data sampah terbaru.",
-                "operationId": "a348324e41ded325da16e029a5efa2ce",
-                "responses": {
-                    "200": {
-                        "description": "Data dashboard berhasil diambil",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "data": {
-                                            "properties": {
-                                                "total_data_sampah": {
-                                                    "type": "integer",
-                                                    "example": 120
-                                                },
-                                                "total_desa_binaan": {
-                                                    "type": "integer",
-                                                    "example": 15
-                                                },
-                                                "total_artikel": {
-                                                    "type": "integer",
-                                                    "example": 8
-                                                },
-                                                "total_galeri": {
-                                                    "type": "integer",
-                                                    "example": 24
-                                                },
-                                                "total_edukasi": {
-                                                    "type": "integer",
-                                                    "example": 5
-                                                },
-                                                "data_sampah_terbaru": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "object"
-                                                    }
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Token tidak valid atau tidak diberikan"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/data-pengelolaan": {
+        "/data-pengelolaan": {
             "get": {
                 "tags": [
                     "Data Pengelolaan"
                 ],
                 "summary": "Ambil semua data pengelolaan sampah",
                 "description": "Mengembalikan daftar data pengelolaan sampah. Fasilitator hanya melihat data miliknya sendiri. Administrator melihat semua data. Mendukung pagination.",
-                "operationId": "7e6eecafb5f39077cbae3bb96c52cb87",
+                "operationId": "5b3729d114354d6404110c2c24836f1d",
                 "parameters": [
                     {
                         "name": "per_page",
@@ -1241,7 +1174,7 @@
                 ],
                 "summary": "Input data pengelolaan sampah baru",
                 "description": "Menambahkan data pengelolaan sampah baru. Data sampah sumber HARUS sudah berstatus `verified`. Jumlah pengelolaan tidak boleh melebihi jumlah pada data sampah sumber.",
-                "operationId": "f45c50292d0731a1d1eb48b588d41ba6",
+                "operationId": "a348e83ebbdf089fee769d9efbe24191",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1321,14 +1254,14 @@
                 ]
             }
         },
-        "/api/v1/data-pengelolaan/{id}": {
+        "/data-pengelolaan/{id}": {
             "get": {
                 "tags": [
                     "Data Pengelolaan"
                 ],
                 "summary": "Ambil detail satu data pengelolaan",
                 "description": "Mengembalikan detail lengkap satu data pengelolaan sampah. Fasilitator hanya bisa melihat data miliknya sendiri.",
-                "operationId": "82e9159e32e08608cbb302711948be01",
+                "operationId": "c886cd5593b8ae6b9f0757f1bad0c7c3",
                 "parameters": [
                     {
                         "name": "id",
@@ -1383,7 +1316,7 @@
                 ],
                 "summary": "Update data pengelolaan sampah",
                 "description": "Mengupdate data pengelolaan yang sudah ada. Jumlah tidak boleh melebihi jumlah data sampah sumber.",
-                "operationId": "2231b96cd8511bda0237630210b6ba91",
+                "operationId": "6067d89cc695f7e471a987bf4aeff2dc",
                 "parameters": [
                     {
                         "name": "id",
@@ -1454,7 +1387,7 @@
                 ],
                 "summary": "Hapus data pengelolaan sampah",
                 "description": "Menghapus data pengelolaan secara permanen. Fasilitator hanya bisa hapus data miliknya sendiri.",
-                "operationId": "29b79d8d58c21db3e77bf961ee5a7490",
+                "operationId": "1f82d7abb6168d9ef33eae3657f3fad8",
                 "parameters": [
                     {
                         "name": "id",
@@ -1504,37 +1437,19 @@
                 ]
             }
         },
-        "/api/v1/data-sampah": {
+        "/data-sampah": {
             "get": {
                 "tags": [
                     "Data Sampah"
                 ],
                 "summary": "Ambil semua data sampah (dashboard)",
-                "description": "Mengembalikan daftar semua data sampah yang telah diinput. Mendukung filter dan pagination. Hanya untuk pengguna yang login dengan permission `input.data-sampah` atau `verifikasi.data-sampah`.",
-                "operationId": "7a2cdd9a33d6afec896aeb0b0f0eb8c7",
+                "description": "Mengembalikan daftar data sampah untuk dashboard internal. Fasilitator hanya melihat data miliknya sendiri, Administrator melihat semua data. Mendukung filter status, desa, dan rentang tanggal.",
+                "operationId": "a6e97c3fc9cf7c91326c1529fecefa38",
                 "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    },
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "example": 10
-                        }
-                    },
                     {
                         "name": "status",
                         "in": "query",
-                        "description": "Filter berdasarkan status: pending, verified, rejected",
+                        "description": "Filter berdasarkan status",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -1548,11 +1463,39 @@
                     {
                         "name": "desa_id",
                         "in": "query",
-                        "description": "Filter berdasarkan ID desa",
                         "required": false,
                         "schema": {
                             "type": "integer",
-                            "example": 3
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "tanggal_dari",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2026-01-01"
+                        }
+                    },
+                    {
+                        "name": "tanggal_sampai",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2026-06-30"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
                         }
                     }
                 ],
@@ -1568,12 +1511,7 @@
                                             "example": true
                                         },
                                         "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object"
-                                            }
-                                        },
-                                        "meta": {
+                                            "description": "Hasil pagination Laravel berisi data sampah beserta relasi desa, user, jenisSampah, verifiedBy, dan pengelolaans",
                                             "type": "object"
                                         }
                                     },
@@ -1584,9 +1522,6 @@
                     },
                     "401": {
                         "description": "Token tidak valid"
-                    },
-                    "403": {
-                        "description": "Tidak punya permission yang diperlukan"
                     }
                 },
                 "security": [
@@ -1600,8 +1535,8 @@
                     "Data Sampah"
                 ],
                 "summary": "Input data sampah baru",
-                "description": "Menambahkan data volume sampah baru dari sebuah desa. Data akan berstatus `pending` hingga diverifikasi oleh Administrator.",
-                "operationId": "2780482c1cfe946765ae7e02a8c07f75",
+                "description": "Menambahkan data volume sampah baru. Data otomatis berstatus `pending` dan `is_public: false` sampai diverifikasi oleh Administrator.",
+                "operationId": "68d88d360a7635a1ebf8acd4c0c4bd5a",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1610,8 +1545,8 @@
                                 "required": [
                                     "desa_id",
                                     "jenis_sampah_id",
-                                    "volume",
-                                    "tanggal"
+                                    "tanggal",
+                                    "jumlah"
                                 ],
                                 "properties": {
                                     "desa_id": {
@@ -1622,21 +1557,16 @@
                                         "type": "integer",
                                         "example": 2
                                     },
-                                    "volume": {
-                                        "description": "Volume sampah dalam satuan kg",
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 125.5
-                                    },
                                     "tanggal": {
                                         "type": "string",
                                         "format": "date",
                                         "example": "2026-06-16"
                                     },
-                                    "keterangan": {
-                                        "type": "string",
-                                        "example": "Data sampah minggu pertama Juni",
-                                        "nullable": true
+                                    "jumlah": {
+                                        "description": "Jumlah sampah dalam Kg, minimal 0.01",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 125.5
                                     }
                                 },
                                 "type": "object"
@@ -1646,13 +1576,10 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Data sampah berhasil ditambahkan"
+                        "description": "Data sampah berhasil disimpan"
                     },
                     "401": {
                         "description": "Token tidak valid"
-                    },
-                    "403": {
-                        "description": "Tidak punya permission input.data-sampah"
                     },
                     "422": {
                         "description": "Validasi gagal"
@@ -1665,25 +1592,15 @@
                 ]
             }
         },
-        "/api/v1/data-sampah/publik": {
+        "/data-sampah/publik": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil data sampah publik",
-                "description": "Mengembalikan data sampah yang sudah diverifikasi (`verified`) untuk ditampilkan di halaman publik website. Tidak membutuhkan token.",
-                "operationId": "0068e0457fe4b15a1fb5ac715f7cb15c",
+                "description": "Mengembalikan data sampah yang sudah berstatus `verified` DAN `is_public: true` untuk ditampilkan di halaman publik website. Tidak membutuhkan token.\n\nMendukung filter `bulan` dalam format nama Indonesia (contoh: `Juni`) maupun angka (`6`) — sistem otomatis menerjemahkan nama bulan ke angka.",
+                "operationId": "af55776cebd0eee48a4c0e01735d1e71",
                 "parameters": [
-                    {
-                        "name": "tahun",
-                        "in": "query",
-                        "description": "Filter berdasarkan tahun",
-                        "required": false,
-                        "schema": {
-                            "type": "integer",
-                            "example": 2026
-                        }
-                    },
                     {
                         "name": "desa_id",
                         "in": "query",
@@ -1692,23 +1609,199 @@
                             "type": "integer",
                             "example": 1
                         }
+                    },
+                    {
+                        "name": "bulan",
+                        "in": "query",
+                        "description": "Nama bulan dalam Bahasa Indonesia (contoh: Juni) atau angka 1-12",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Juni"
+                        }
+                    },
+                    {
+                        "name": "tahun",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2026
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Data sampah publik berhasil diambil"
+                        "description": "Data sampah publik berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "description": "Hasil pagination berisi data sampah verified & publik, beserta relasi desa, jenisSampah, dan pengelolaans",
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
-        "/api/v1/data-sampah/{id}": {
+        "/data-sampah/statistik": {
+            "get": {
+                "tags": [
+                    "Publik"
+                ],
+                "summary": "Ambil statistik data sampah publik",
+                "description": "Mengembalikan statistik agregat data sampah yang sudah `verified` dan `is_public: true` — total keseluruhan, total per jenis sampah, dan total per desa. Digunakan untuk grafik/chart di halaman publik. Mendukung filter yang sama dengan endpoint publik (bulan, tahun, desa).",
+                "operationId": "97f23916a2d3ad7915ea150f2866be69",
+                "parameters": [
+                    {
+                        "name": "desa_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "bulan",
+                        "in": "query",
+                        "description": "Nama bulan dalam Bahasa Indonesia (contoh: Juni) atau angka 1-12",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Juni"
+                        }
+                    },
+                    {
+                        "name": "tahun",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2026
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Statistik data sampah berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "total_sampah": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 1250.5
+                                                },
+                                                "per_jenis": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "jenis": {
+                                                                "type": "string",
+                                                                "example": "Sampah Organik"
+                                                            },
+                                                            "total": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 500
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "per_desa": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "desa": {
+                                                                "type": "string",
+                                                                "example": "Desa Sukamaju"
+                                                            },
+                                                            "total": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 320
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/data-sampah/{id}": {
+            "get": {
+                "tags": [
+                    "Data Sampah"
+                ],
+                "summary": "Ambil detail satu data sampah",
+                "description": "Mengembalikan detail lengkap satu data sampah beserta relasi desa, user, jenisSampah, verifiedBy, dan riwayat pengelolaannya. Fasilitator hanya bisa lihat data miliknya sendiri.",
+                "operationId": "601addc9808b3a2fc47c02b2bcb9166d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detail data sampah berhasil diambil"
+                    },
+                    "401": {
+                        "description": "Token tidak valid"
+                    },
+                    "403": {
+                        "description": "Fasilitator mencoba akses data milik pengguna lain"
+                    },
+                    "404": {
+                        "description": "Data sampah tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "Data Sampah"
                 ],
                 "summary": "Update data sampah",
-                "description": "Mengupdate data sampah yang sudah ada. Hanya bisa dilakukan jika status masih `pending` atau `rejected`.",
-                "operationId": "1295d95ffd5b47bf3471dcc3618557b2",
+                "description": "Mengupdate data sampah. Setiap kali diupdate, status otomatis di-reset menjadi `pending` dan `is_public` kembali `false` — data harus diverifikasi ulang dari awal. Fasilitator tidak bisa update data yang sudah `verified`.",
+                "operationId": "dd8ace82b3ef33a4a58d6889e884f66c",
                 "parameters": [
                     {
                         "name": "id",
@@ -1725,6 +1818,12 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "desa_id",
+                                    "jenis_sampah_id",
+                                    "tanggal",
+                                    "jumlah"
+                                ],
                                 "properties": {
                                     "desa_id": {
                                         "type": "integer",
@@ -1734,19 +1833,15 @@
                                         "type": "integer",
                                         "example": 2
                                     },
-                                    "volume": {
-                                        "type": "number",
-                                        "format": "float",
-                                        "example": 130
-                                    },
                                     "tanggal": {
                                         "type": "string",
                                         "format": "date",
                                         "example": "2026-06-16"
                                     },
-                                    "keterangan": {
-                                        "type": "string",
-                                        "nullable": true
+                                    "jumlah": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 130
                                     }
                                 },
                                 "type": "object"
@@ -1762,13 +1857,13 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Tidak punya permission atau data sudah verified"
+                        "description": "Akses ditolak — bukan pemilik data"
                     },
                     "404": {
                         "description": "Data sampah tidak ditemukan"
                     },
                     "422": {
-                        "description": "Validasi gagal"
+                        "description": "Validasi gagal, atau data sudah verified (khusus Fasilitator)"
                     }
                 },
                 "security": [
@@ -1782,8 +1877,8 @@
                     "Data Sampah"
                 ],
                 "summary": "Hapus data sampah",
-                "description": "Menghapus data sampah secara permanen berdasarkan ID.",
-                "operationId": "8b1c2fdfae7c4af47455564c630082f0",
+                "description": "Menghapus data sampah secara permanen. Fasilitator tidak bisa hapus data yang sudah berstatus `verified`.",
+                "operationId": "264a58f82b925b79e2b91de5424a6414",
                 "parameters": [
                     {
                         "name": "id",
@@ -1803,10 +1898,13 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Tidak punya permission"
+                        "description": "Akses ditolak — bukan pemilik data"
                     },
                     "404": {
                         "description": "Data sampah tidak ditemukan"
+                    },
+                    "422": {
+                        "description": "Data sudah verified, tidak bisa dihapus (khusus Fasilitator)"
                     }
                 },
                 "security": [
@@ -1816,29 +1914,14 @@
                 ]
             }
         },
-        "/api/v1/data-sampah/statistik": {
-            "get": {
-                "tags": [
-                    "Publik"
-                ],
-                "summary": "Ambil statistik data sampah publik",
-                "description": "Mengembalikan statistik agregat data sampah untuk ditampilkan di halaman publik (grafik, chart, dll). Tidak membutuhkan token.",
-                "operationId": "74d0309353f2f50a9df9d84adbc66bf5",
-                "responses": {
-                    "200": {
-                        "description": "Statistik data sampah berhasil diambil"
-                    }
-                }
-            }
-        },
-        "/api/v1/data-sampah/{id}/verify": {
+        "/data-sampah/{id}/verify": {
             "post": {
                 "tags": [
                     "Data Sampah"
                 ],
                 "summary": "Verifikasi data sampah",
-                "description": "Mengubah status data sampah dari `pending` menjadi `verified`. Khusus Administrator dengan permission `verifikasi.data-sampah`.",
-                "operationId": "248543a24765807d1bed8ccb3852c9be",
+                "description": "Mengubah status data sampah dari `pending` menjadi `verified`. **Penting:** begitu diverifikasi, data otomatis menjadi `is_public: true` dan langsung tampil di halaman publik website — tidak ada langkah publikasi manual terpisah. Hanya data berstatus `pending` yang bisa diverifikasi.",
+                "operationId": "522c54976cc90e5282ddd07669f62ea1",
                 "parameters": [
                     {
                         "name": "id",
@@ -1852,16 +1935,16 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Data sampah berhasil diverifikasi"
+                        "description": "Data sampah berhasil diverifikasi & otomatis dipublikasikan"
                     },
                     "401": {
                         "description": "Token tidak valid"
                     },
-                    "403": {
-                        "description": "Tidak punya permission verifikasi.data-sampah"
-                    },
                     "404": {
                         "description": "Data sampah tidak ditemukan"
+                    },
+                    "422": {
+                        "description": "Data bukan berstatus pending, tidak bisa diverifikasi"
                     }
                 },
                 "security": [
@@ -1871,14 +1954,14 @@
                 ]
             }
         },
-        "/api/v1/data-sampah/{id}/reject": {
+        "/data-sampah/{id}/reject": {
             "post": {
                 "tags": [
                     "Data Sampah"
                 ],
                 "summary": "Tolak data sampah",
-                "description": "Mengubah status data sampah dari `pending` menjadi `rejected`. Data yang ditolak bisa diedit ulang oleh Fasilitator dan akan kembali ke status `pending`.",
-                "operationId": "3e7eb0f4b9a4beb9283df67fb0e9f4ba",
+                "description": "Mengubah status data sampah dari `pending` menjadi `rejected`. Wajib menyertakan catatan penolakan. Hanya data berstatus `pending` yang bisa ditolak.",
+                "operationId": "2156061aba724e6aefe649b293a6bb87",
                 "parameters": [
                     {
                         "name": "id",
@@ -1891,15 +1974,17 @@
                     }
                 ],
                 "requestBody": {
-                    "required": false,
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "catatan_penolakan"
+                                ],
                                 "properties": {
-                                    "alasan": {
+                                    "catatan_penolakan": {
                                         "type": "string",
-                                        "example": "Volume tidak sesuai dengan laporan lapangan",
-                                        "nullable": true
+                                        "example": "Volume tidak sesuai dengan laporan lapangan"
                                     }
                                 },
                                 "type": "object"
@@ -1914,11 +1999,11 @@
                     "401": {
                         "description": "Token tidak valid"
                     },
-                    "403": {
-                        "description": "Tidak punya permission verifikasi.data-sampah"
-                    },
                     "404": {
                         "description": "Data sampah tidak ditemukan"
+                    },
+                    "422": {
+                        "description": "Catatan penolakan tidak diisi, atau data bukan berstatus pending"
                     }
                 },
                 "security": [
@@ -1928,14 +2013,94 @@
                 ]
             }
         },
-        "/api/v1/desas": {
+        "/data-sampah/{id}/cancel-verify": {
+            "post": {
+                "tags": [
+                    "Data Sampah"
+                ],
+                "summary": "Batalkan verifikasi data sampah",
+                "description": "Mengembalikan data sampah dari status `verified` kembali ke `pending`. Data otomatis ditarik dari publik (`is_public: false`). Hanya data berstatus `verified` yang bisa dibatalkan verifikasinya.",
+                "operationId": "2a260f7f551eb3dc68caa200e70a6c5d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Verifikasi berhasil dibatalkan, data ditarik dari publik"
+                    },
+                    "401": {
+                        "description": "Token tidak valid"
+                    },
+                    "404": {
+                        "description": "Data sampah tidak ditemukan"
+                    },
+                    "422": {
+                        "description": "Data bukan berstatus verified, tidak bisa dibatalkan"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/data-sampah/{id}/toggle-publish": {
+            "post": {
+                "tags": [
+                    "Data Sampah"
+                ],
+                "summary": "Toggle status publikasi data sampah",
+                "description": "Membalik status `is_public` data sampah (true ↔ false) tanpa mengubah status verifikasinya. Berguna untuk menyembunyikan sementara data yang sudah `verified` dari halaman publik tanpa harus membatalkan verifikasinya. Hanya berlaku untuk data berstatus `verified`.",
+                "operationId": "c74984e4700e4981e0fa291c203e5344",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Status publikasi berhasil diubah"
+                    },
+                    "401": {
+                        "description": "Token tidak valid"
+                    },
+                    "404": {
+                        "description": "Data sampah tidak ditemukan"
+                    },
+                    "422": {
+                        "description": "Data bukan berstatus verified, tidak bisa diubah status publikasinya"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/desas": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil semua desa binaan",
                 "description": "Mengembalikan daftar semua desa binaan DLH Kabupaten Garut beserta profil TPS-nya. Tidak membutuhkan token — endpoint publik.",
-                "operationId": "4a189aa731dec4b98a546e9dab040636",
+                "operationId": "d34174560b8cc0ea54cb82cc5883776e",
                 "responses": {
                     "200": {
                         "description": "Daftar desa binaan berhasil diambil",
@@ -1988,7 +2153,7 @@
                 ],
                 "summary": "Tambah desa binaan baru",
                 "description": "Menambahkan desa binaan baru ke sistem. Membutuhkan Auth Token dengan permission `kelola.desa-binaan`.",
-                "operationId": "08fb5218375318334642cbac30eedad4",
+                "operationId": "0599ab1036ef249fabeabc7178d25791",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2068,14 +2233,14 @@
                 ]
             }
         },
-        "/api/v1/desas/{slug}": {
+        "/desas/{slug}": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil detail desa binaan berdasarkan slug",
                 "description": "Mengembalikan detail lengkap satu desa binaan beserta profil TPS-nya. Tidak membutuhkan token.",
-                "operationId": "3017a56bcd8cc1d447dbbc089b19a36b",
+                "operationId": "fda262d5c108772768302f245a1f5788",
                 "parameters": [
                     {
                         "name": "slug",
@@ -2134,14 +2299,14 @@
                 }
             }
         },
-        "/api/v1/desas/{id}": {
+        "/desas/{id}": {
             "put": {
                 "tags": [
                     "Desa Binaan"
                 ],
                 "summary": "Update data desa binaan",
                 "description": "Mengupdate nama dan alamat desa binaan. Slug akan otomatis di-generate ulang dari nama desa yang baru.",
-                "operationId": "1446a0121a2f7372a7421b267268914f",
+                "operationId": "3e689db8a1d5bc85eb4ea3bf84200b61",
                 "parameters": [
                     {
                         "name": "id",
@@ -2207,7 +2372,7 @@
                 ],
                 "summary": "Hapus desa binaan",
                 "description": "Menghapus desa binaan secara permanen. Khusus Administrator dengan permission `kelola.desa-binaan`.",
-                "operationId": "befbad3621a7086febe64639ab3fe8e3",
+                "operationId": "507c5c953ef5c11f2cab4c9a13bf64e4",
                 "parameters": [
                     {
                         "name": "id",
@@ -2253,14 +2418,14 @@
                 ]
             }
         },
-        "/api/v1/edukasis": {
+        "/edukasis": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil semua konten edukasi",
                 "description": "Mengembalikan daftar konten edukasi untuk halaman publik. Mendukung filter berdasarkan kategori (`modul` atau `video`). Tidak membutuhkan token.",
-                "operationId": "abd27220a84ee6fba5f131e3c9206beb",
+                "operationId": "1d2349298323d1031eb8e1b92c822f38",
                 "parameters": [
                     {
                         "name": "kategori",
@@ -2354,7 +2519,7 @@
                 ],
                 "summary": "Tambah konten edukasi baru",
                 "description": "Menambahkan konten edukasi baru.\n\n**Aturan kategori:**\n- Kategori `modul` → wajib upload `file_pdf`\n- Kategori `video` → wajib isi `link_video` (URL YouTube)\n\nGunakan `multipart/form-data` karena ada upload file.",
-                "operationId": "10dbf03eeb6dc8bd1f92d113dd411b8d",
+                "operationId": "a4aee92801de3649c719b75776788d22",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2427,14 +2592,14 @@
                 ]
             }
         },
-        "/api/v1/edukasis/{slug}": {
+        "/edukasis/{slug}": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil detail konten edukasi berdasarkan slug",
                 "description": "Mengembalikan detail lengkap satu konten edukasi. Tidak membutuhkan token.",
-                "operationId": "c03ba224375d20f2e8b732c2ff8c2b32",
+                "operationId": "3be245e454f6f2418cdc06611260606c",
                 "parameters": [
                     {
                         "name": "slug",
@@ -2456,14 +2621,14 @@
                 }
             }
         },
-        "/api/v1/edukasis/{id}/edit": {
+        "/edukasis/{id}/edit": {
             "get": {
                 "tags": [
                     "Edukasi"
                 ],
                 "summary": "Ambil data edukasi untuk form edit (dashboard)",
                 "description": "Mengambil data konten edukasi berdasarkan ID untuk form edit di dashboard. Fasilitator hanya bisa akses konten miliknya sendiri.",
-                "operationId": "df94f4e1e3e7523daf877e7143facc13",
+                "operationId": "2c503c9c9b3deea8ef0fb0279c0a2e4f",
                 "parameters": [
                     {
                         "name": "id",
@@ -2496,14 +2661,14 @@
                 ]
             }
         },
-        "/api/v1/edukasis/{id}": {
+        "/edukasis/{id}": {
             "put": {
                 "tags": [
                     "Edukasi"
                 ],
                 "summary": "Update konten edukasi",
                 "description": "Mengupdate konten edukasi yang sudah ada. Gunakan `multipart/form-data` dengan `_method: PUT`.",
-                "operationId": "c72f37a9951e3c3ca105cb9ffdb1928e",
+                "operationId": "9e1be3240c4ebfa3f691cd3bcb46ba0b",
                 "parameters": [
                     {
                         "name": "id",
@@ -2591,7 +2756,7 @@
                 ],
                 "summary": "Hapus konten edukasi",
                 "description": "Menghapus konten edukasi secara permanen. Fasilitator hanya bisa hapus konten miliknya sendiri.",
-                "operationId": "1edd1134ee003a091b0fbc1bd52a02e1",
+                "operationId": "e5b9562e91093ffa8af76bb8bdb342a5",
                 "parameters": [
                     {
                         "name": "id",
@@ -2624,14 +2789,14 @@
                 ]
             }
         },
-        "/api/v1/galeris": {
+        "/galeris": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil semua foto galeri",
                 "description": "Mengembalikan daftar semua foto galeri untuk halaman publik. Tidak membutuhkan token. Hasil dipaginasi 12 foto per halaman.",
-                "operationId": "9f2b8317621cc916e31e0a947c93885b",
+                "operationId": "d20cea3ff57aaf2d13b48bcfb1614d0d",
                 "parameters": [
                     {
                         "name": "page",
@@ -2697,7 +2862,7 @@
                 ],
                 "summary": "Upload foto galeri baru",
                 "description": "Mengunggah foto galeri baru. Request HARUS menggunakan `multipart/form-data` karena ada upload file gambar.",
-                "operationId": "a9b68b75a4441eb6efa4eea35f3ca215",
+                "operationId": "5136fc67139353a7f1ff67c3d30eda55",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2744,14 +2909,14 @@
                 ]
             }
         },
-        "/api/v1/galeris/{slug}": {
+        "/galeris/{slug}": {
             "get": {
                 "tags": [
                     "Publik"
                 ],
                 "summary": "Ambil detail foto galeri berdasarkan slug",
                 "description": "Mengembalikan detail satu foto galeri berdasarkan slug. Tidak membutuhkan token.",
-                "operationId": "e464a715c99c3755ecb461b297d61e85",
+                "operationId": "89bbb246f8a964a2ce743408466c1546",
                 "parameters": [
                     {
                         "name": "slug",
@@ -2773,14 +2938,14 @@
                 }
             }
         },
-        "/api/v1/galeris/{id}": {
+        "/galeris/{id}": {
             "post": {
                 "tags": [
                     "Galeri"
                 ],
                 "summary": "Update foto galeri (gunakan _method=PUT)",
                 "description": "Mengupdate keterangan atau mengganti foto galeri. Gunakan `multipart/form-data` dengan field `_method: PUT`.",
-                "operationId": "f927925444439b10a43bb3c83b968c0d",
+                "operationId": "83d6e73fa7495ba48d9c2a643ea8dcb2",
                 "parameters": [
                     {
                         "name": "id",
@@ -2849,7 +3014,7 @@
                 ],
                 "summary": "Hapus foto galeri",
                 "description": "Menghapus foto galeri secara permanen. Fasilitator hanya bisa hapus foto miliknya sendiri.",
-                "operationId": "d960b34c6962916f19c7cad956e4e64d",
+                "operationId": "1becc80d40edf2c37eec0210cbbe23f0",
                 "parameters": [
                     {
                         "name": "id",
@@ -2882,14 +3047,14 @@
                 ]
             }
         },
-        "/api/v1/interop/data-sampah": {
+        "/interop/data-sampah": {
             "get": {
                 "tags": [
                     "Interop"
                 ],
                 "summary": "[Sampah Kita Jabar] Ambil data sampah terverifikasi",
                 "description": "Endpoint khusus untuk diakses oleh Platform **Sampah Kita Jabar** (DLH Provinsi Jawa Barat).\n\nHanya mengembalikan data sampah yang sudah berstatus **verified**. Field response sudah difilter — hanya menampilkan data yang relevan untuk pihak ketiga, tidak ada data internal yang bocor.\n\n**Autentikasi:** Wajib menggunakan API Key Token dengan ability `sampah:read`.\n\n**Rate Limit:** 60 request per menit.",
-                "operationId": "6d0378b234dd81fe84e8ea25b4a6ba78",
+                "operationId": "bb43a007ba2c441c2f14b89df9431312",
                 "parameters": [
                     {
                         "name": "per_page",
@@ -3052,14 +3217,14 @@
                 ]
             }
         },
-        "/api/v1/interop/data-pengelolaan": {
+        "/interop/data-pengelolaan": {
             "get": {
                 "tags": [
                     "Interop"
                 ],
                 "summary": "[Sampah Kita Jabar] Ambil data pengelolaan sampah",
                 "description": "Endpoint khusus untuk diakses oleh Platform **Sampah Kita Jabar** (DLH Provinsi Jawa Barat).\n\nHanya mengembalikan data pengelolaan yang sumber data sampahnya sudah **verified**.\n\n**Autentikasi:** Wajib menggunakan API Key Token dengan ability `pengelolaan:read`.\n\n**Rate Limit:** 60 request per menit.",
-                "operationId": "975084f85e5d7182f606cfe3cdcd848a",
+                "operationId": "dbf48fd8d713fab5cbf6e5626a14050b",
                 "parameters": [
                     {
                         "name": "per_page",
@@ -3218,14 +3383,14 @@
                 ]
             }
         },
-        "/api/v1/jenis-pengelolaan": {
+        "/jenis-pengelolaan": {
             "get": {
                 "tags": [
                     "Jenis Pengelolaan"
                 ],
                 "summary": "Ambil semua jenis pengelolaan sampah",
                 "description": "Mengembalikan daftar semua jenis pengelolaan sampah yang tersedia (contoh: 3R, Kompos, Bank Sampah). Data ini digunakan sebagai referensi saat input data pengelolaan. Membutuhkan Auth Token.",
-                "operationId": "1ed2f77bb5276c9a42eaa32add7f9fbd",
+                "operationId": "22e52ffbe0159b668cdeef7daf4d3a51",
                 "responses": {
                     "200": {
                         "description": "Daftar jenis pengelolaan berhasil diambil",
@@ -3280,7 +3445,7 @@
                 ],
                 "summary": "Tambah jenis pengelolaan sampah baru",
                 "description": "Menambahkan jenis pengelolaan sampah baru ke master data. Khusus Administrator dengan permission `kelola.jenis-pengelolaan`. Nama harus unik.",
-                "operationId": "a349317afd987b7db24d98f629705c1d",
+                "operationId": "8d736cbbf43cbb2ea686002a049c064b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -3357,14 +3522,14 @@
                 ]
             }
         },
-        "/api/v1/jenis-pengelolaan/{id}": {
+        "/jenis-pengelolaan/{id}": {
             "put": {
                 "tags": [
-                    "Master Data"
+                    "Jenis Pengelolaan"
                 ],
                 "summary": "Update jenis pengelolaan sampah",
                 "description": "Mengupdate nama dan deskripsi jenis pengelolaan. Nama harus tetap unik. Khusus Administrator.",
-                "operationId": "91eb739a4495b14395211c0ada593cab",
+                "operationId": "dcf21605c662a39f6229ef101c47e1ac",
                 "parameters": [
                     {
                         "name": "id",
@@ -3442,11 +3607,11 @@
             },
             "delete": {
                 "tags": [
-                    "Master Data"
+                    "Jenis Pengelolaan"
                 ],
                 "summary": "Hapus jenis pengelolaan sampah",
                 "description": "Menghapus jenis pengelolaan dari master data secara permanen. Pastikan tidak sedang digunakan di data pengelolaan manapun. Khusus Administrator.",
-                "operationId": "3458e1e373bf2cf061dc1aa1052055a0",
+                "operationId": "36c50c0cb8b041b0b9851eed9b368adf",
                 "parameters": [
                     {
                         "name": "id",
@@ -3492,14 +3657,14 @@
                 ]
             }
         },
-        "/api/v1/jenis-sampah": {
+        "/jenis-sampah": {
             "get": {
                 "tags": [
                     "Jenis Sampah"
                 ],
                 "summary": "Ambil semua jenis sampah",
                 "description": "Mengembalikan daftar semua jenis sampah yang tersedia di sistem. Data ini digunakan sebagai referensi saat input data sampah. Membutuhkan Auth Token.",
-                "operationId": "e169871dd97832b2cde08b1593c2a525",
+                "operationId": "91519a235bc9d63d715bd87519f9ca75",
                 "responses": {
                     "200": {
                         "description": "Daftar jenis sampah berhasil diambil",
@@ -3554,7 +3719,7 @@
                 ],
                 "summary": "Tambah jenis sampah baru",
                 "description": "Menambahkan jenis sampah baru ke master data. Khusus Administrator dengan permission `kelola.jenis-sampah`. Nama jenis sampah harus unik.",
-                "operationId": "3ee08eeb19d6bc7bbc2d0700f9212823",
+                "operationId": "016bd79078d73c0d2dad7956d1d036b0",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -3631,14 +3796,14 @@
                 ]
             }
         },
-        "/api/v1/jenis-sampah/{id}": {
+        "/jenis-sampah/{id}": {
             "put": {
                 "tags": [
                     "Jenis Sampah"
                 ],
                 "summary": "Update jenis sampah",
                 "description": "Mengupdate nama dan deskripsi jenis sampah. Nama harus tetap unik (boleh sama dengan nama saat ini). Khusus Administrator.",
-                "operationId": "37f415373e7f2f44c69e8012b062afb3",
+                "operationId": "6742033633fbd369ff0eac6219d876a8",
                 "parameters": [
                     {
                         "name": "id",
@@ -3720,7 +3885,7 @@
                 ],
                 "summary": "Hapus jenis sampah",
                 "description": "Menghapus jenis sampah dari master data secara permanen. Pastikan jenis sampah ini tidak sedang digunakan di data sampah manapun sebelum dihapus. Khusus Administrator.",
-                "operationId": "07e52a579619f7289f264dee4e060de1",
+                "operationId": "f8a539d116881b4b667ed499d761a0f0",
                 "parameters": [
                     {
                         "name": "id",
@@ -3766,14 +3931,14 @@
                 ]
             }
         },
-        "/api/v1/profil-tps": {
+        "/profil-tps": {
             "get": {
                 "tags": [
                     "Profil TPS"
                 ],
                 "summary": "Ambil semua profil TPS",
                 "description": "Mengembalikan daftar semua Tempat Penampungan Sampah beserta relasi desanya. Membutuhkan Auth Token.",
-                "operationId": "e73e61f54df35f873171cf100e4564bb",
+                "operationId": "0cf471d671c3a76b4fdb741a09d4d196",
                 "responses": {
                     "200": {
                         "description": "Daftar profil TPS berhasil diambil",
@@ -3857,7 +4022,7 @@
                 ],
                 "summary": "Tambah profil TPS baru",
                 "description": "Menambahkan profil TPS baru untuk desa tertentu. Gunakan `multipart/form-data` karena mendukung upload gambar.",
-                "operationId": "5fd674a4e9478ebef11c9e18c7287f4b",
+                "operationId": "1d080d40a632a0d9c94e5bdb963a86bc",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -3935,14 +4100,14 @@
                 ]
             }
         },
-        "/api/v1/profil-tps/{id}": {
+        "/profil-tps/{id}": {
             "get": {
                 "tags": [
                     "Profil TPS"
                 ],
                 "summary": "Ambil detail profil TPS",
                 "description": "Mengembalikan detail lengkap satu profil TPS berdasarkan ID beserta relasi desanya.",
-                "operationId": "df67733d97d2ba26560cd500ac961fac",
+                "operationId": "65e24f235b84ba9fa295d06770d2d1dc",
                 "parameters": [
                     {
                         "name": "id",
@@ -3978,7 +4143,7 @@
                 ],
                 "summary": "Update profil TPS (gunakan _method=PUT)",
                 "description": "Mengupdate data profil TPS. Karena ada upload gambar, gunakan `multipart/form-data` dengan field `_method: PUT`.",
-                "operationId": "a3e059ec8d998ece2e9f5373a576b459",
+                "operationId": "80f527b95fda2d9c09303fcb3fa5e7df",
                 "parameters": [
                     {
                         "name": "id",
@@ -4077,7 +4242,7 @@
                 ],
                 "summary": "Hapus profil TPS",
                 "description": "Menghapus profil TPS secara permanen. Khusus Administrator.",
-                "operationId": "a5e8dad2d8d1c9d881a4f45073ce1d4c",
+                "operationId": "98e9407e3a4618e11332664168214fd8",
                 "parameters": [
                     {
                         "name": "id",
@@ -4123,14 +4288,14 @@
                 ]
             }
         },
-        "/api/v1/roles": {
+        "/roles": {
             "get": {
                 "tags": [
                     "Role & Permission"
                 ],
                 "summary": "Ambil semua role",
                 "description": "Mengembalikan daftar semua role beserta permission yang dimilikinya. Khusus Administrator dengan permission `kelola.role-permission`.",
-                "operationId": "7b6db67055386dd285d7ad75884b54bf",
+                "operationId": "c4f13b69bdb2ba9e181e4851dc82c1d3",
                 "responses": {
                     "200": {
                         "description": "Daftar role berhasil diambil",
@@ -4190,7 +4355,9 @@
                         "bearerAuth": []
                     }
                 ]
-            },
+            }
+        },
+        "/api/v1/roles": {
             "post": {
                 "tags": [
                     "Role & Permission"
@@ -4761,14 +4928,14 @@
                 ]
             }
         },
-        "/api/v1/users": {
+        "/users": {
             "get": {
                 "tags": [
                     "Manajemen User"
                 ],
                 "summary": "Ambil semua pengguna",
                 "description": "Mengembalikan daftar semua pengguna sistem dengan role masing-masing. Mendukung pencarian dan filter berdasarkan role. Khusus Administrator.",
-                "operationId": "b343fe695d1beaa03b7deb8449dd1b7c",
+                "operationId": "7208c29037df2b8bb02499ba39ed8a78",
                 "parameters": [
                     {
                         "name": "search",
@@ -4878,7 +5045,7 @@
                 ],
                 "summary": "Buat akun pengguna baru",
                 "description": "Membuat akun pengguna baru dan langsung assign role. Satu akun bisa memiliki lebih dari satu role (Role Switcher). Khusus Administrator.",
-                "operationId": "71d86dd873f9e567415d5da5929a0dea",
+                "operationId": "262eb5ca1fdea354023c0a8870442c1e",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -4960,14 +5127,14 @@
                 ]
             }
         },
-        "/api/v1/users/{id}": {
+        "/users/{id}": {
             "get": {
                 "tags": [
                     "Manajemen User"
                 ],
                 "summary": "Ambil detail pengguna",
                 "description": "Mengembalikan detail lengkap satu pengguna beserta role dan permission-nya.",
-                "operationId": "0197efcfd303b59ccdaad3e01097a0e0",
+                "operationId": "6946bbab7898f59a09e3c8e529a38907",
                 "parameters": [
                     {
                         "name": "id",
@@ -5050,7 +5217,7 @@
                 ],
                 "summary": "Update data pengguna",
                 "description": "Mengupdate data pengguna. Semua field bersifat opsional (`sometimes`). Password hanya diupdate jika field `password` diisi. Role di-sync ulang jika field `roles` dikirim.",
-                "operationId": "e27513375b71e3b3dcc043da6f62129c",
+                "operationId": "05028d02ea3e9a99abd6260cfe05b179",
                 "parameters": [
                     {
                         "name": "id",
@@ -5150,7 +5317,7 @@
                 ],
                 "summary": "Hapus pengguna",
                 "description": "Menghapus akun pengguna secara permanen. Administrator tidak bisa menghapus akunnya sendiri.",
-                "operationId": "ae967f8cf847f7d2ad9eba19833f58cd",
+                "operationId": "b3d28da5dc9de7fc1bd425f93b54ff7b",
                 "parameters": [
                     {
                         "name": "id",
@@ -5224,10 +5391,6 @@
             "description": "Login, logout, dan manajemen profil akun pengguna dashboard. Token didapat dari endpoint login di grup ini."
         },
         {
-            "name": "Dashboard",
-            "description": "Ringkasan statistik dan data untuk halaman utama dashboard. Membutuhkan Auth Token."
-        },
-        {
             "name": "Data Sampah",
             "description": "Input, kelola, dan verifikasi data volume sampah per desa. Membutuhkan Auth Token dengan permission `input.data-sampah` atau `verifikasi.data-sampah`."
         },
@@ -5254,10 +5417,6 @@
         {
             "name": "Profil TPS",
             "description": "Kelola profil Tempat Penampungan Sampah per desa. Membutuhkan Auth Token dengan permission `kelola.desa-binaan`."
-        },
-        {
-            "name": "Master Data",
-            "description": "Kelola jenis sampah dan jenis pengelolaan sampah. Membutuhkan Auth Token dengan permission `kelola.jenis-sampah` atau `kelola.jenis-pengelolaan`."
         },
         {
             "name": "Manajemen User",

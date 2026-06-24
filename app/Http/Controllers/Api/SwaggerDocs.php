@@ -45,7 +45,6 @@ use OpenApi\Attributes as OA;
 #[OA\Tag(name: "Edukasi", description: "Kelola konten edukasi dan materi pembelajaran lingkungan. Membutuhkan Auth Token dengan permission `kelola.edukasi`.")]
 #[OA\Tag(name: "Desa Binaan", description: "Kelola data desa binaan DLH Kabupaten Garut. Membutuhkan Auth Token dengan permission `kelola.desa-binaan`.")]
 #[OA\Tag(name: "Profil TPS", description: "Kelola profil Tempat Penampungan Sampah per desa. Membutuhkan Auth Token dengan permission `kelola.desa-binaan`.")]
-#[OA\Tag(name: "Master Data", description: "Kelola jenis sampah dan jenis pengelolaan sampah. Membutuhkan Auth Token dengan permission `kelola.jenis-sampah` atau `kelola.jenis-pengelolaan`.")]
 #[OA\Tag(name: "Manajemen User", description: "Kelola akun pengguna sistem. Khusus Administrator dengan permission `manajemen.user`.")]
 #[OA\Tag(name: "Role & Permission", description: "Kelola role dan permission sistem RBAC. Khusus Administrator dengan permission `kelola.role-permission`.")]
 #[OA\Tag(name: "API Key & Log", description: "Kelola API Key dan lihat log aktivitas sistem. Khusus Administrator dengan permission `kelola.api-key`.")]

@@ -13,7 +13,7 @@ class EdukasiController extends Controller
 {
 
 #[OA\Get(
-        path: '/api/v1/edukasis',
+        path: '/edukasis',
         summary: 'Ambil semua konten edukasi',
         description: 'Mengembalikan daftar konten edukasi untuk halaman publik. Mendukung filter berdasarkan kategori (`modul` atau `video`). Tidak membutuhkan token.',
         tags: ['Publik'],
@@ -62,7 +62,7 @@ class EdukasiController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/edukasis/{slug}',
+        path: '/edukasis/{slug}',
         summary: 'Ambil detail konten edukasi berdasarkan slug',
         description: 'Mengembalikan detail lengkap satu konten edukasi. Tidak membutuhkan token.',
         tags: ['Publik'],
@@ -85,7 +85,7 @@ class EdukasiController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/edukasis/{id}/edit',
+        path: '/edukasis/{id}/edit',
         summary: 'Ambil data edukasi untuk form edit (dashboard)',
         description: 'Mengambil data konten edukasi berdasarkan ID untuk form edit di dashboard. Fasilitator hanya bisa akses konten miliknya sendiri.',
         tags: ['Edukasi'],
@@ -113,7 +113,7 @@ class EdukasiController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/edukasis',
+        path: '/edukasis',
         summary: 'Tambah konten edukasi baru',
         description: "Menambahkan konten edukasi baru.\n\n**Aturan kategori:**\n- Kategori `modul` → wajib upload `file_pdf`\n- Kategori `video` → wajib isi `link_video` (URL YouTube)\n\nGunakan `multipart/form-data` karena ada upload file.",
         tags: ['Edukasi'],
@@ -203,7 +203,7 @@ class EdukasiController extends Controller
     }
 
     #[OA\Put(
-        path: '/api/v1/edukasis/{id}',
+        path: '/edukasis/{id}',
         summary: 'Update konten edukasi',
         description: 'Mengupdate konten edukasi yang sudah ada. Gunakan `multipart/form-data` dengan `_method: PUT`.',
         tags: ['Edukasi'],
@@ -310,7 +310,7 @@ class EdukasiController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/edukasis/{id}',
+        path: '/edukasis/{id}',
         summary: 'Hapus konten edukasi',
         description: 'Menghapus konten edukasi secara permanen. Fasilitator hanya bisa hapus konten miliknya sendiri.',
         tags: ['Edukasi'],

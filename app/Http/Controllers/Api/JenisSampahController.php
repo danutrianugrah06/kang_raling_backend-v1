@@ -12,7 +12,7 @@ class JenisSampahController extends Controller
 {
 
 #[OA\Get(
-        path: '/api/v1/jenis-sampah',
+        path: '/jenis-sampah',
         summary: 'Ambil semua jenis sampah',
         description: 'Mengembalikan daftar semua jenis sampah yang tersedia di sistem. Data ini digunakan sebagai referensi saat input data sampah. Membutuhkan Auth Token.',
         tags: ['Jenis Sampah'],
@@ -49,7 +49,7 @@ class JenisSampahController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/jenis-sampah',
+        path: '/jenis-sampah',
         summary: 'Tambah jenis sampah baru',
         description: 'Menambahkan jenis sampah baru ke master data. Khusus Administrator dengan permission `kelola.jenis-sampah`. Nama jenis sampah harus unik.',
         tags: ['Jenis Sampah'],
@@ -118,7 +118,7 @@ class JenisSampahController extends Controller
     }
 
     #[OA\Put(
-        path: '/api/v1/jenis-sampah/{id}',
+        path: '/jenis-sampah/{id}',
         summary: 'Update jenis sampah',
         description: 'Mengupdate nama dan deskripsi jenis sampah. Nama harus tetap unik (boleh sama dengan nama saat ini). Khusus Administrator.',
         tags: ['Jenis Sampah'],
@@ -181,7 +181,7 @@ class JenisSampahController extends Controller
     }
 
     #[OA\Delete(
-        path: '/api/v1/jenis-sampah/{id}',
+        path: '/jenis-sampah/{id}',
         summary: 'Hapus jenis sampah',
         description: 'Menghapus jenis sampah dari master data secara permanen. Pastikan jenis sampah ini tidak sedang digunakan di data sampah manapun sebelum dihapus. Khusus Administrator.',
         tags: ['Jenis Sampah'],

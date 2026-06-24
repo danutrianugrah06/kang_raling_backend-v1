@@ -39,7 +39,7 @@ class AuthController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/login',
+        path: '/login',
         summary: 'Login ke dashboard',
         description: 'Melakukan autentikasi pengguna dan mengembalikan Bearer Token untuk mengakses semua endpoint protected. Token berlaku selama 7 hari.',
         tags: ['Auth & Akun'],
@@ -129,7 +129,7 @@ class AuthController extends Controller
     }
 
     #[OA\Post(
-        path: '/api/v1/logout',
+        path: '/logout',
         summary: 'Logout dari dashboard',
         description: 'Menghapus token aktif pengguna yang sedang login. Token tidak bisa digunakan lagi setelah logout.',
         tags: ['Auth & Akun'],
@@ -161,7 +161,7 @@ class AuthController extends Controller
     }
 
     #[OA\Get(
-        path: '/api/v1/me',
+        path: '/me',
         summary: 'Ambil data profil pengguna yang sedang login',
         description: 'Mengembalikan data lengkap pengguna yang sedang terautentikasi, termasuk semua role dan permission yang dimiliki.',
         tags: ['Auth & Akun'],
@@ -201,7 +201,7 @@ class AuthController extends Controller
     }
 
     #[OA\Patch(
-        path: '/api/v1/me/update-profile',
+        path: '/me/update-profile',
         summary: 'Perbarui nama dan email profil',
         description: 'Mengupdate data nama dan email pengguna yang sedang login.',
         tags: ['Auth & Akun'],
@@ -234,7 +234,7 @@ class AuthController extends Controller
     )]
 
 #[OA\Patch(
-        path: '/api/v1/me/update-password',
+        path: '/me/update-password',
         summary: 'Perbarui password akun',
         description: 'Mengubah password pengguna yang sedang login. Wajib memasukkan password lama yang benar sebelum bisa ganti password baru.',
         tags: ['Auth & Akun'],

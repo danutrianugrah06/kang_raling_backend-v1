@@ -8,42 +8,9 @@ use App\Models\Desa;
 use App\Models\User;
 use App\Models\Artikel;
 use Illuminate\Http\Request;
-use OpenApi\Attributes as OA;
 
 class DashboardController extends Controller
 {
-
-#[OA\Get(
-        path: '/api/v1/dashboard',
-        summary: 'Ambil data ringkasan dashboard',
-        description: 'Mengembalikan statistik ringkasan untuk halaman utama dashboard: total data sampah, total desa binaan, total artikel, total galeri, total edukasi, dan grafik data sampah terbaru.',
-        tags: ['Dashboard'],
-        security: [['bearerAuth' => []]],
-        responses: [
-            new OA\Response(
-                response: 200,
-                description: 'Data dashboard berhasil diambil',
-                content: new OA\JsonContent(
-                    properties: [
-                        new OA\Property(property: 'status', type: 'boolean', example: true),
-                        new OA\Property(
-                            property: 'data',
-                            type: 'object',
-                            properties: [
-                                new OA\Property(property: 'total_data_sampah', type: 'integer', example: 120),
-                                new OA\Property(property: 'total_desa_binaan', type: 'integer', example: 15),
-                                new OA\Property(property: 'total_artikel', type: 'integer', example: 8),
-                                new OA\Property(property: 'total_galeri', type: 'integer', example: 24),
-                                new OA\Property(property: 'total_edukasi', type: 'integer', example: 5),
-                                new OA\Property(property: 'data_sampah_terbaru', type: 'array', items: new OA\Items(type: 'object')),
-                            ]
-                        ),
-                    ]
-                )
-            ),
-            new OA\Response(response: 401, description: 'Token tidak valid atau tidak diberikan'),
-        ]
-    )]
 
     public function index(Request $request)
     {
