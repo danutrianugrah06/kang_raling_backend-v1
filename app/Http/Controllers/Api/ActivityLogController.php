@@ -14,7 +14,7 @@ class ActivityLogController extends Controller
     #[OA\Get(
         path: '/activity-logs',
         summary: 'Ambil log aktivitas sistem',
-        description: 'Mengembalikan riwayat aktivitas yang tercatat di sistem (login, logout, create, update, delete, dll) beserta pengguna yang melakukannya. Mendukung filter berdasarkan jenis aksi. Khusus Administrator.',
+        description: 'Mengembalikan riwayat aktivitas yang tercatat di sistem (login, logout, create, update, delete, dll) beserta pengguna yang melakukannya. Mendukung filter berdasarkan jenis aksi. Khusus Koordinator.',
         tags: ['API Key & Log'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -52,7 +52,7 @@ class ActivityLogController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
         ]
     )]
     public function index(Request $request)

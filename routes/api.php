@@ -51,10 +51,10 @@ Route::prefix('v1')->group(function () {
     */
     Route::middleware('auth:sanctum')->group(function () {
 
-        // --- Auth ---
+        // --- Auth & Pengaturan Akun Dasar ---
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/me',      [AuthController::class, 'me']);
-
+        
         // Dashboard bisa diakses semua role yang sudah login
         Route::get('/dashboard', [DashboardController::class, 'index']);
 
@@ -65,24 +65,50 @@ Route::prefix('v1')->group(function () {
 
         /*
         |--------------------------------------------------------------------------
-        | FASILITATOR ROUTES (Input Data & Kelola Konten)
+        | DATA REFERENSI (DROPDOWN FORM)
         |--------------------------------------------------------------------------
+        | Endpoint ini dibutuhkan oleh form input di frontend.
+        | Semua user yang login (Fasilitator & Koordinator) diizinkan membaca data ini.
         */
+        Route::get('/jenis-sampah',         [JenisSampahController::class, 'index']);
+        Route::get('/jenis-pengelolaan',    [JenisPengelolaanController::class, 'index']);
 
-        // Input Data Sampah
-        Route::middleware('permission:input.data-sampah')->group(function () {
+
+        /*
+        |--------------------------------------------------------------------------
+        | AKSES BERSAMA (FASILITATOR & KOORDINATOR)
+        |--------------------------------------------------------------------------
+        | Menggunakan operator "|" (ATAU) agar rute GET tidak saling tumpang tindih.
+        | Fasilitator butuh ini untuk melihat riwayat inputannya, 
+        | Koordinator butuh ini untuk melihat data yang akan diverifikasi.
+        */
+        Route::middleware('permission:input.data-sampah|verifikasi.data-sampah')->group(function () {
             Route::get('/data-sampah',          [DataSampahController::class, 'index']);
-            Route::post('/data-sampah',         [DataSampahController::class, 'store']);
             Route::get('/data-sampah/{id}',     [DataSampahController::class, 'show']);
+        });
+
+        Route::middleware('permission:input.data-pengelolaan|verifikasi.data-pengelolaan')->group(function () {
+            Route::get('/data-pengelolaan',         [DataPengelolaanSampahController::class, 'index']);
+            Route::get('/data-pengelolaan/{id}',    [DataPengelolaanSampahController::class, 'show']);
+        });
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | FASILITATOR ROUTES (Input & Kelola Konten)
+        |--------------------------------------------------------------------------
+        | Berisi endpoint untuk Create, Update, dan Delete data.
+        */
+        // Input Data Sampah (Hanya CRUD)
+        Route::middleware('permission:input.data-sampah')->group(function () {
+            Route::post('/data-sampah',         [DataSampahController::class, 'store']);
             Route::put('/data-sampah/{id}',     [DataSampahController::class, 'update']);
             Route::delete('/data-sampah/{id}',  [DataSampahController::class, 'destroy']);
         });
 
-        // Input Data Pengelolaan
+        // Input Data Pengelolaan (Hanya CRUD)
         Route::middleware('permission:input.data-pengelolaan')->group(function () {
-            Route::get('/data-pengelolaan',         [DataPengelolaanSampahController::class, 'index']);
             Route::post('/data-pengelolaan',        [DataPengelolaanSampahController::class, 'store']);
-            Route::get('/data-pengelolaan/{id}',    [DataPengelolaanSampahController::class, 'show']);
             Route::put('/data-pengelolaan/{id}',    [DataPengelolaanSampahController::class, 'update']);
             Route::delete('/data-pengelolaan/{id}', [DataPengelolaanSampahController::class, 'destroy']);
         });
@@ -125,38 +151,35 @@ Route::prefix('v1')->group(function () {
             Route::delete('/edukasis/{id}',     [EdukasiController::class, 'destroy']);
         });
 
-        // Kelola Jenis Sampah
+        // Kelola Jenis Sampah (Master Data)
         Route::middleware('permission:kelola.jenis-sampah')->group(function () {
-            Route::get('/jenis-sampah',         [JenisSampahController::class, 'index']);
             Route::post('/jenis-sampah',        [JenisSampahController::class, 'store']);
             Route::put('/jenis-sampah/{id}',    [JenisSampahController::class, 'update']);
             Route::delete('/jenis-sampah/{id}', [JenisSampahController::class, 'destroy']);
         });
 
-        // Kelola Jenis Pengelolaan
+        // Kelola Jenis Pengelolaan (Master Data)
         Route::middleware('permission:kelola.jenis-pengelolaan')->group(function () {
-            Route::get('/jenis-pengelolaan',         [JenisPengelolaanController::class, 'index']);
             Route::post('/jenis-pengelolaan',        [JenisPengelolaanController::class, 'store']);
             Route::put('/jenis-pengelolaan/{id}',    [JenisPengelolaanController::class, 'update']);
             Route::delete('/jenis-pengelolaan/{id}', [JenisPengelolaanController::class, 'destroy']);
         });
 
+
         /*
         |--------------------------------------------------------------------------
-        | ADMINISTRATOR ROUTES (Verifikasi, Manajemen Sistem, Audit)
+        | KOORDINATOR ROUTES (Verifikasi, Manajemen Sistem, Audit)
         |--------------------------------------------------------------------------
+        | Semua akses penting dan vital (Persetujuan, Pembatalan, Publish) 
+        | dikumpulkan dan dikunci rapat di dalam satu middleware ini.
         */
-
-        // Verifikasi Data Sampah
+        // Aksi Verifikasi Data Sampah
         Route::middleware('permission:verifikasi.data-sampah')->group(function () {
-            Route::get('/data-sampah',              [DataSampahController::class, 'index']);
-            Route::get('/data-sampah/{id}',         [DataSampahController::class, 'show']);
-            Route::post('/data-sampah/{id}/verify', [DataSampahController::class, 'verify']);
-            Route::post('/data-sampah/{id}/reject', [DataSampahController::class, 'reject']);
+            Route::post('/data-sampah/{id}/verify',        [DataSampahController::class, 'verify']);
+            Route::post('/data-sampah/{id}/reject',        [DataSampahController::class, 'reject']);
+            Route::post('/data-sampah/{id}/cancel-verify', [DataSampahController::class, 'cancelVerify']);
+            Route::post('/data-sampah/{id}/toggle-publish',[DataSampahController::class, 'togglePublish']);
         });
-
-        Route::post('/data-sampah/{id}/cancel-verify', [DataSampahController::class, 'cancelVerify']);
-        Route::post('/data-sampah/{id}/toggle-publish', [DataSampahController::class, 'togglePublish']);
 
         // Manajemen User
         Route::middleware('permission:manajemen.user')->group(function () {
@@ -182,7 +205,7 @@ Route::prefix('v1')->group(function () {
             Route::post('/users/{id}/sync-roles',           [RolePermissionController::class, 'syncUserRoles']);
         });
 
-        // Kelola API Key (BISA DIAKSES ADMIN & DEVELOPER)
+        // Kelola API Key (BISA DIAKSES KOORDINATOR & DEVELOPER)
         Route::middleware('permission:kelola.api-key|generate.api-token')->group(function () {
             Route::get('/api-keys',                      [ApiKeyController::class, 'index']);
             Route::post('/api-keys',                     [ApiKeyController::class, 'generate']);
@@ -191,12 +214,13 @@ Route::prefix('v1')->group(function () {
             Route::patch('/api-keys/{id}/toggle-active', [ApiKeyController::class, 'toggleActive']);
         });
 
-        // Kelola Log Sistem (KHUSUS ADMIN)
+        // Kelola Log Sistem (KHUSUS KOORDINATOR)
         Route::middleware('permission:kelola.api-key')->group(function () {
             Route::get('/activity-logs',                 [ActivityLogController::class, 'index']);
             Route::get('/sinkronisasi-logs',             [SinkronisasiLogController::class, 'index']);
             Route::post('/sinkronisasi-logs/{id}/retry', [SinkronisasiLogController::class, 'retry']);
         });
+
 
         /*
         |--------------------------------------------------------------------------
@@ -207,6 +231,7 @@ Route::prefix('v1')->group(function () {
             Route::get('/laporan/data-sampah',      [DataSampahController::class, 'index']);
             Route::get('/laporan/data-pengelolaan', [DataPengelolaanSampahController::class, 'index']);
         });
+
 
         /*
         |--------------------------------------------------------------------------
@@ -222,13 +247,13 @@ Route::prefix('v1')->group(function () {
     });
 
     /*
-        |--------------------------------------------------------------------------
-        | INTEROP ROUTES — Endpoint untuk ditarik oleh Aplikasi Eksternal
-        |--------------------------------------------------------------------------
-        | Dijaga oleh auth:sanctum PLUS ability check.
-        | Hanya token yang dibuat dengan ability 'sampah:read' yang bisa masuk.
-        | Token login biasa (auth_token) tidak punya ability ini → otomatis ditolak.
-        */
+    |--------------------------------------------------------------------------
+    | INTEROP ROUTES — Endpoint untuk ditarik oleh Aplikasi Eksternal
+    |--------------------------------------------------------------------------
+    | Dijaga oleh auth:sanctum PLUS ability check.
+    | Hanya token yang dibuat dengan ability 'sampah:read' yang bisa masuk.
+    | Token login biasa (auth_token) tidak punya ability ini → otomatis ditolak.
+    */
     Route::middleware(['auth:sanctum', 'throttle:60,1'])->prefix('interop')->group(function () {
         Route::get('/data-sampah', [InteropController::class, 'dataSampah'])
             ->middleware('abilities:sampah:read');

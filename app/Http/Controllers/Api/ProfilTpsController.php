@@ -235,7 +235,7 @@ class ProfilTpsController extends Controller
     #[OA\Delete(
         path: '/profil-tps/{id}',
         summary: 'Hapus profil TPS',
-        description: 'Menghapus profil TPS secara permanen. Khusus Administrator.',
+        description: 'Menghapus profil TPS secara permanen. Khusus Koordinator.',
         tags: ['Profil TPS'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -257,7 +257,7 @@ class ProfilTpsController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 404, description: 'Profil TPS tidak ditemukan'),
         ]
     )]
@@ -268,7 +268,7 @@ class ProfilTpsController extends Controller
     public function destroy(Request $request, $id)
     {
         // Ganti isAdmin() lama ke hasRole() Spatie
-        if (!$request->user()->hasRole('Administrator')) {
+        if (!$request->user()->hasRole('Koordinator')) {
             return response()->json(['message' => 'Akses ditolak.'], 403);
         }
 

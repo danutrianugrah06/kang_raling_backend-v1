@@ -14,11 +14,11 @@ class UserSeeder extends Seeder
         $admin = User::updateOrCreate(
             ['email' => 'admin@kangraling.id'],
             [
-                'nama'     => 'Administrator',
+                'nama'     => 'Koordinator',
                 'password' => Hash::make('admin123'),
             ]
         );
-        $admin->syncRoles(['Administrator', 'Fasilitator']);
+        $admin->syncRoles(['Koordinator', 'Fasilitator']);
 
         // Fasilitator
         $fasilitators = [

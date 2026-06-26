@@ -51,7 +51,7 @@ class JenisSampahController extends Controller
     #[OA\Post(
         path: '/jenis-sampah',
         summary: 'Tambah jenis sampah baru',
-        description: 'Menambahkan jenis sampah baru ke master data. Khusus Administrator dengan permission `kelola.jenis-sampah`. Nama jenis sampah harus unik.',
+        description: 'Menambahkan jenis sampah baru ke master data. Khusus Koordinator dengan permission `kelola.jenis-sampah`. Nama jenis sampah harus unik.',
         tags: ['Jenis Sampah'],
         security: [['bearerAuth' => []]],
         requestBody: new OA\RequestBody(
@@ -94,7 +94,7 @@ class JenisSampahController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 422, description: 'Validasi gagal — nama sudah dipakai'),
         ]
     )]
@@ -120,7 +120,7 @@ class JenisSampahController extends Controller
     #[OA\Put(
         path: '/jenis-sampah/{id}',
         summary: 'Update jenis sampah',
-        description: 'Mengupdate nama dan deskripsi jenis sampah. Nama harus tetap unik (boleh sama dengan nama saat ini). Khusus Administrator.',
+        description: 'Mengupdate nama dan deskripsi jenis sampah. Nama harus tetap unik (boleh sama dengan nama saat ini). Khusus Koordinator.',
         tags: ['Jenis Sampah'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -154,7 +154,7 @@ class JenisSampahController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 404, description: 'Jenis sampah tidak ditemukan'),
             new OA\Response(response: 422, description: 'Validasi gagal — nama sudah dipakai oleh jenis sampah lain'),
         ]
@@ -183,7 +183,7 @@ class JenisSampahController extends Controller
     #[OA\Delete(
         path: '/jenis-sampah/{id}',
         summary: 'Hapus jenis sampah',
-        description: 'Menghapus jenis sampah dari master data secara permanen. Pastikan jenis sampah ini tidak sedang digunakan di data sampah manapun sebelum dihapus. Khusus Administrator.',
+        description: 'Menghapus jenis sampah dari master data secara permanen. Pastikan jenis sampah ini tidak sedang digunakan di data sampah manapun sebelum dihapus. Khusus Koordinator.',
         tags: ['Jenis Sampah'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -205,7 +205,7 @@ class JenisSampahController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 404, description: 'Jenis sampah tidak ditemukan'),
         ]
     )]

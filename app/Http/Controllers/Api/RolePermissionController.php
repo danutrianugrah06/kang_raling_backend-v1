@@ -21,7 +21,7 @@ class RolePermissionController extends Controller
     #[OA\Get(
         path: '/roles',
         summary: 'Ambil semua role',
-        description: 'Mengembalikan daftar semua role beserta permission yang dimilikinya. Khusus Administrator dengan permission `kelola.role-permission`.',
+        description: 'Mengembalikan daftar semua role beserta permission yang dimilikinya. Khusus Koordinator dengan permission `kelola.role-permission`.',
         tags: ['Role & Permission'],
         security: [['bearerAuth' => []]],
         responses: [
@@ -37,7 +37,7 @@ class RolePermissionController extends Controller
                             items: new OA\Items(
                                 properties: [
                                     new OA\Property(property: 'id', type: 'integer', example: 1),
-                                    new OA\Property(property: 'name', type: 'string', example: 'Administrator'),
+                                    new OA\Property(property: 'name', type: 'string', example: 'Koordinator'),
                                     new OA\Property(property: 'permissions', type: 'array', items: new OA\Items(type: 'string'), example: ['manajemen.user', 'verifikasi.data-sampah']),
                                     new OA\Property(property: 'created_at', type: 'string', format: 'date-time'),
                                 ],
@@ -69,7 +69,7 @@ class RolePermissionController extends Controller
     #[OA\Post(
         path: '/api/v1/roles',
         summary: 'Tambah role baru',
-        description: 'Membuat role baru dalam sistem RBAC. Nama role harus unik. Khusus Administrator.',
+        description: 'Membuat role baru dalam sistem RBAC. Nama role harus unik. Khusus Koordinator.',
         tags: ['Role & Permission'],
         security: [['bearerAuth' => []]],
         requestBody: new OA\RequestBody(
@@ -94,7 +94,7 @@ class RolePermissionController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 422, description: 'Validasi gagal — nama role sudah dipakai'),
         ]
     )]
@@ -119,7 +119,7 @@ class RolePermissionController extends Controller
     #[OA\Put(
         path: '/api/v1/roles/{id}',
         summary: 'Update nama role',
-        description: 'Mengubah nama role. Role sistem bawaan (`Administrator`, `Fasilitator`, `Pimpinan`, `Developer Eksternal`) tidak bisa diubah namanya untuk menjaga integritas RBAC.',
+        description: 'Mengubah nama role. Role sistem bawaan (`Koordinator`, `Fasilitator`, `Pimpinan`, `Developer Eksternal`) tidak bisa diubah namanya untuk menjaga integritas RBAC.',
         tags: ['Role & Permission'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -137,7 +137,7 @@ class RolePermissionController extends Controller
         responses: [
             new OA\Response(response: 200, description: 'Nama role berhasil diperbarui'),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Mencoba mengubah role sistem (Administrator/Fasilitator/Pimpinan/Developer Eksternal)'),
+            new OA\Response(response: 403, description: 'Mencoba mengubah role sistem (Koordinator/Fasilitator/Pimpinan/Developer Eksternal)'),
             new OA\Response(response: 404, description: 'Role tidak ditemukan'),
             new OA\Response(response: 422, description: 'Validasi gagal — nama sudah dipakai role lain'),
         ]
@@ -146,7 +146,7 @@ class RolePermissionController extends Controller
     {
         $role = Role::findOrFail($id);
 
-        $protectedRoles = ['Administrator', 'Fasilitator', 'Pimpinan', 'Developer Eksternal'];
+        $protectedRoles = ['Koordinator', 'Fasilitator', 'Pimpinan', 'Developer Eksternal'];
         if (in_array($role->name, $protectedRoles)) {
             return response()->json([
                 'status'  => false,
@@ -170,7 +170,7 @@ class RolePermissionController extends Controller
     #[OA\Delete(
         path: '/api/v1/roles/{id}',
         summary: 'Hapus role',
-        description: 'Menghapus role dari sistem. Role `Administrator` dan `Fasilitator` tidak bisa dihapus demi keamanan sistem.',
+        description: 'Menghapus role dari sistem. Role `Koordinator` dan `Fasilitator` tidak bisa dihapus demi keamanan sistem.',
         tags: ['Role & Permission'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -188,7 +188,7 @@ class RolePermissionController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Mencoba menghapus role Administrator atau Fasilitator'),
+            new OA\Response(response: 403, description: 'Mencoba menghapus role Koordinator atau Fasilitator'),
             new OA\Response(response: 404, description: 'Role tidak ditemukan'),
         ]
     )]
@@ -298,7 +298,7 @@ class RolePermissionController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 422, description: 'Validasi gagal — nama sudah dipakai'),
         ]
     )]
@@ -341,7 +341,7 @@ class RolePermissionController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 404, description: 'Permission tidak ditemukan'),
         ]
     )]
@@ -402,7 +402,7 @@ class RolePermissionController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 404, description: 'Role tidak ditemukan'),
             new OA\Response(response: 422, description: 'Validasi gagal — ada nama permission yang tidak terdaftar'),
         ]
@@ -472,7 +472,7 @@ class RolePermissionController extends Controller
                 )
             ),
             new OA\Response(response: 401, description: 'Token tidak valid'),
-            new OA\Response(response: 403, description: 'Bukan Administrator'),
+            new OA\Response(response: 403, description: 'Bukan Koordinator'),
             new OA\Response(response: 404, description: 'Pengguna tidak ditemukan'),
             new OA\Response(response: 422, description: 'Validasi gagal — ada nama role yang tidak terdaftar'),
         ]

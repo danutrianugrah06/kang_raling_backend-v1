@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Kang Raling API Web Service",
-        "description": "Selamat datang di Dokumentasi Resmi Web Service **Kang Raling** (Kampung Ramah Lingkungan).\n\nAPI ini merupakan antarmuka integrasi data untuk Sistem Informasi Monitoring Sampah di lingkungan **Dinas Lingkungan Hidup (DLH) Kabupaten Garut**, Provinsi Jawa Barat.\n\n---\n\n## Panduan Autentikasi & Keamanan\n\nSebagian besar *endpoint* dalam API ini bersifat privat dan dienkripsi menggunakan metode otorisasi *HTTP Bearer Token*. Terdapat dua jenis token yang diizinkan oleh sistem:\n\n### 1. Internal Auth Token (Dashboard)\nDigunakan oleh pengguna sistem yang sah (Administrator/Fasilitator) untuk mengelola data operasional. Token bersifat dinamis dan diperoleh dengan mengirimkan kredensial melalui *endpoint* `POST /api/v1/login`.\n\n### 2. External API Key (Interop)\nDigunakan secara eksklusif untuk komunikasi antar-server (machine-to-machine), seperti integrasi dengan platform provinsi. Token ini dilindungi oleh pembatasan *Rate Limit* (maksimal 60 *request*/menit) dan berstatus *read-only*. API Key dapat digenerate oleh Administrator sistem pada menu pengembang.\n\n### Cara Melakukan Pengujian (Testing) API:\n1. Pastikan Anda telah memiliki salah satu token valid di atas.\n2. Klik tombol **Authorize** (ikon gembok hijau) di sudut kanan atas halaman ini.\n3. Masukkan token ke dalam form yang tersedia, lalu klik tombol **Authorize**.\n4. Sistem Swagger akan secara otomatis menyisipkan token tersebut ke setiap permintaan (request) yang Anda uji coba melalui tombol **Try it out**.",
+        "description": "Selamat datang di Dokumentasi Resmi Web Service **Kang Raling** (Kampung Ramah Lingkungan).\n\nAPI ini merupakan antarmuka integrasi data untuk Sistem Informasi Monitoring Sampah di lingkungan **Dinas Lingkungan Hidup (DLH) Kabupaten Garut**, Provinsi Jawa Barat.\n\n---\n\n## Panduan Autentikasi & Keamanan\n\nSebagian besar *endpoint* dalam API ini bersifat privat dan dienkripsi menggunakan metode otorisasi *HTTP Bearer Token*. Terdapat dua jenis token yang diizinkan oleh sistem:\n\n### 1. Internal Auth Token (Dashboard)\nDigunakan oleh pengguna sistem yang sah (Koordinator/Fasilitator) untuk mengelola data operasional. Token bersifat dinamis dan diperoleh dengan mengirimkan kredensial melalui *endpoint* `POST /api/v1/login`.\n\n### 2. External API Key (Interop)\nDigunakan secara eksklusif untuk komunikasi antar-server (machine-to-machine), seperti integrasi dengan platform provinsi. Token ini dilindungi oleh pembatasan *Rate Limit* (maksimal 60 *request*/menit) dan berstatus *read-only*. API Key dapat digenerate oleh Koordinator sistem pada menu pengembang.\n\n### Cara Melakukan Pengujian (Testing) API:\n1. Pastikan Anda telah memiliki salah satu token valid di atas.\n2. Klik tombol **Authorize** (ikon gembok hijau) di sudut kanan atas halaman ini.\n3. Masukkan token ke dalam form yang tersedia, lalu klik tombol **Authorize**.\n4. Sistem Swagger akan secara otomatis menyisipkan token tersebut ke setiap permintaan (request) yang Anda uji coba melalui tombol **Try it out**.",
         "contact": {
             "name": "Developer Website Kang Raling",
             "email": "danu3anugrah@gmail.com"
@@ -26,7 +26,7 @@
                     "API Key & Log"
                 ],
                 "summary": "Ambil log aktivitas sistem",
-                "description": "Mengembalikan riwayat aktivitas yang tercatat di sistem (login, logout, create, update, delete, dll) beserta pengguna yang melakukannya. Mendukung filter berdasarkan jenis aksi. Khusus Administrator.",
+                "description": "Mengembalikan riwayat aktivitas yang tercatat di sistem (login, logout, create, update, delete, dll) beserta pengguna yang melakukannya. Mendukung filter berdasarkan jenis aksi. Khusus Koordinator.",
                 "operationId": "f3145468a8270697db363d1cef912aa3",
                 "parameters": [
                     {
@@ -92,7 +92,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     }
                 },
                 "security": [
@@ -108,7 +108,7 @@
                     "API Key & Log"
                 ],
                 "summary": "Ambil semua API Key",
-                "description": "Mengembalikan daftar API Key (token interop) yang sudah dibuat. Administrator melihat semua API Key dari semua developer eksternal, sedangkan Developer Eksternal hanya melihat API Key miliknya sendiri. Token login (`auth_token`) tidak ditampilkan di sini.",
+                "description": "Mengembalikan daftar API Key (token interop) yang sudah dibuat. Koordinator melihat semua API Key dari semua developer eksternal, sedangkan Developer Eksternal hanya melihat API Key miliknya sendiri. Token login (`auth_token`) tidak ditampilkan di sini.",
                 "operationId": "b35df5b76a65bb259446547c3fd61f45",
                 "responses": {
                     "200": {
@@ -275,7 +275,7 @@
                     "API Key & Log"
                 ],
                 "summary": "Hapus API Key",
-                "description": "Mencabut/menghapus API Key secara permanen. Setelah dihapus, token tidak bisa lagi digunakan untuk mengakses endpoint interop. Administrator bisa hapus API Key milik siapapun, Developer Eksternal hanya bisa hapus miliknya sendiri.",
+                "description": "Mencabut/menghapus API Key secara permanen. Setelah dihapus, token tidak bisa lagi digunakan untuk mengakses endpoint interop. Koordinator bisa hapus API Key milik siapapun, Developer Eksternal hanya bisa hapus miliknya sendiri.",
                 "operationId": "1b44437ad6aa6798d9edc858c6ee98bc",
                 "parameters": [
                     {
@@ -1077,7 +1077,7 @@
                     "Data Pengelolaan"
                 ],
                 "summary": "Ambil semua data pengelolaan sampah",
-                "description": "Mengembalikan daftar data pengelolaan sampah. Fasilitator hanya melihat data miliknya sendiri. Administrator melihat semua data. Mendukung pagination.",
+                "description": "Mengembalikan daftar data pengelolaan sampah. Fasilitator hanya melihat data miliknya sendiri. Koordinator melihat semua data. Mendukung pagination.",
                 "operationId": "5b3729d114354d6404110c2c24836f1d",
                 "parameters": [
                     {
@@ -1443,7 +1443,7 @@
                     "Data Sampah"
                 ],
                 "summary": "Ambil semua data sampah (dashboard)",
-                "description": "Mengembalikan daftar data sampah untuk dashboard internal. Fasilitator hanya melihat data miliknya sendiri, Administrator melihat semua data. Mendukung filter status, desa, dan rentang tanggal.",
+                "description": "Mengembalikan daftar data sampah untuk dashboard internal. Fasilitator hanya melihat data miliknya sendiri, Koordinator melihat semua data. Mendukung filter status, desa, dan rentang tanggal.",
                 "operationId": "a6e97c3fc9cf7c91326c1529fecefa38",
                 "parameters": [
                     {
@@ -1535,7 +1535,7 @@
                     "Data Sampah"
                 ],
                 "summary": "Input data sampah baru",
-                "description": "Menambahkan data volume sampah baru. Data otomatis berstatus `pending` dan `is_public: false` sampai diverifikasi oleh Administrator.",
+                "description": "Menambahkan data volume sampah baru. Data otomatis berstatus `pending` dan `is_public: false` sampai diverifikasi oleh Koordinator.",
                 "operationId": "68d88d360a7635a1ebf8acd4c0c4bd5a",
                 "requestBody": {
                     "required": true,
@@ -2371,7 +2371,7 @@
                     "Desa Binaan"
                 ],
                 "summary": "Hapus desa binaan",
-                "description": "Menghapus desa binaan secara permanen. Khusus Administrator dengan permission `kelola.desa-binaan`.",
+                "description": "Menghapus desa binaan secara permanen. Khusus Koordinator dengan permission `kelola.desa-binaan`.",
                 "operationId": "507c5c953ef5c11f2cab4c9a13bf64e4",
                 "parameters": [
                     {
@@ -3444,7 +3444,7 @@
                     "Jenis Pengelolaan"
                 ],
                 "summary": "Tambah jenis pengelolaan sampah baru",
-                "description": "Menambahkan jenis pengelolaan sampah baru ke master data. Khusus Administrator dengan permission `kelola.jenis-pengelolaan`. Nama harus unik.",
+                "description": "Menambahkan jenis pengelolaan sampah baru ke master data. Khusus Koordinator dengan permission `kelola.jenis-pengelolaan`. Nama harus unik.",
                 "operationId": "8d736cbbf43cbb2ea686002a049c064b",
                 "requestBody": {
                     "required": true,
@@ -3509,7 +3509,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "422": {
                         "description": "Validasi gagal — nama sudah dipakai"
@@ -3528,7 +3528,7 @@
                     "Jenis Pengelolaan"
                 ],
                 "summary": "Update jenis pengelolaan sampah",
-                "description": "Mengupdate nama dan deskripsi jenis pengelolaan. Nama harus tetap unik. Khusus Administrator.",
+                "description": "Mengupdate nama dan deskripsi jenis pengelolaan. Nama harus tetap unik. Khusus Koordinator.",
                 "operationId": "dcf21605c662a39f6229ef101c47e1ac",
                 "parameters": [
                     {
@@ -3590,7 +3590,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "404": {
                         "description": "Jenis pengelolaan tidak ditemukan"
@@ -3610,7 +3610,7 @@
                     "Jenis Pengelolaan"
                 ],
                 "summary": "Hapus jenis pengelolaan sampah",
-                "description": "Menghapus jenis pengelolaan dari master data secara permanen. Pastikan tidak sedang digunakan di data pengelolaan manapun. Khusus Administrator.",
+                "description": "Menghapus jenis pengelolaan dari master data secara permanen. Pastikan tidak sedang digunakan di data pengelolaan manapun. Khusus Koordinator.",
                 "operationId": "36c50c0cb8b041b0b9851eed9b368adf",
                 "parameters": [
                     {
@@ -3644,7 +3644,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "404": {
                         "description": "Jenis pengelolaan tidak ditemukan"
@@ -3718,7 +3718,7 @@
                     "Jenis Sampah"
                 ],
                 "summary": "Tambah jenis sampah baru",
-                "description": "Menambahkan jenis sampah baru ke master data. Khusus Administrator dengan permission `kelola.jenis-sampah`. Nama jenis sampah harus unik.",
+                "description": "Menambahkan jenis sampah baru ke master data. Khusus Koordinator dengan permission `kelola.jenis-sampah`. Nama jenis sampah harus unik.",
                 "operationId": "016bd79078d73c0d2dad7956d1d036b0",
                 "requestBody": {
                     "required": true,
@@ -3783,7 +3783,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "422": {
                         "description": "Validasi gagal — nama sudah dipakai"
@@ -3802,7 +3802,7 @@
                     "Jenis Sampah"
                 ],
                 "summary": "Update jenis sampah",
-                "description": "Mengupdate nama dan deskripsi jenis sampah. Nama harus tetap unik (boleh sama dengan nama saat ini). Khusus Administrator.",
+                "description": "Mengupdate nama dan deskripsi jenis sampah. Nama harus tetap unik (boleh sama dengan nama saat ini). Khusus Koordinator.",
                 "operationId": "6742033633fbd369ff0eac6219d876a8",
                 "parameters": [
                     {
@@ -3864,7 +3864,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "404": {
                         "description": "Jenis sampah tidak ditemukan"
@@ -3884,7 +3884,7 @@
                     "Jenis Sampah"
                 ],
                 "summary": "Hapus jenis sampah",
-                "description": "Menghapus jenis sampah dari master data secara permanen. Pastikan jenis sampah ini tidak sedang digunakan di data sampah manapun sebelum dihapus. Khusus Administrator.",
+                "description": "Menghapus jenis sampah dari master data secara permanen. Pastikan jenis sampah ini tidak sedang digunakan di data sampah manapun sebelum dihapus. Khusus Koordinator.",
                 "operationId": "f8a539d116881b4b667ed499d761a0f0",
                 "parameters": [
                     {
@@ -3918,7 +3918,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "404": {
                         "description": "Jenis sampah tidak ditemukan"
@@ -4241,7 +4241,7 @@
                     "Profil TPS"
                 ],
                 "summary": "Hapus profil TPS",
-                "description": "Menghapus profil TPS secara permanen. Khusus Administrator.",
+                "description": "Menghapus profil TPS secara permanen. Khusus Koordinator.",
                 "operationId": "98e9407e3a4618e11332664168214fd8",
                 "parameters": [
                     {
@@ -4275,7 +4275,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "404": {
                         "description": "Profil TPS tidak ditemukan"
@@ -4294,7 +4294,7 @@
                     "Role & Permission"
                 ],
                 "summary": "Ambil semua role",
-                "description": "Mengembalikan daftar semua role beserta permission yang dimilikinya. Khusus Administrator dengan permission `kelola.role-permission`.",
+                "description": "Mengembalikan daftar semua role beserta permission yang dimilikinya. Khusus Koordinator dengan permission `kelola.role-permission`.",
                 "operationId": "c4f13b69bdb2ba9e181e4851dc82c1d3",
                 "responses": {
                     "200": {
@@ -4317,7 +4317,7 @@
                                                     },
                                                     "name": {
                                                         "type": "string",
-                                                        "example": "Administrator"
+                                                        "example": "Koordinator"
                                                     },
                                                     "permissions": {
                                                         "type": "array",
@@ -4363,7 +4363,7 @@
                     "Role & Permission"
                 ],
                 "summary": "Tambah role baru",
-                "description": "Membuat role baru dalam sistem RBAC. Nama role harus unik. Khusus Administrator.",
+                "description": "Membuat role baru dalam sistem RBAC. Nama role harus unik. Khusus Koordinator.",
                 "operationId": "7845b4e574246c99bc746411826e2fef",
                 "requestBody": {
                     "required": true,
@@ -4413,7 +4413,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "422": {
                         "description": "Validasi gagal — nama role sudah dipakai"
@@ -4432,7 +4432,7 @@
                     "Role & Permission"
                 ],
                 "summary": "Update nama role",
-                "description": "Mengubah nama role. Role sistem bawaan (`Administrator`, `Fasilitator`, `Pimpinan`, `Developer Eksternal`) tidak bisa diubah namanya untuk menjaga integritas RBAC.",
+                "description": "Mengubah nama role. Role sistem bawaan (`Koordinator`, `Fasilitator`, `Pimpinan`, `Developer Eksternal`) tidak bisa diubah namanya untuk menjaga integritas RBAC.",
                 "operationId": "f04367d83e092221cd27d4768dae12de",
                 "parameters": [
                     {
@@ -4473,7 +4473,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Mencoba mengubah role sistem (Administrator/Fasilitator/Pimpinan/Developer Eksternal)"
+                        "description": "Mencoba mengubah role sistem (Koordinator/Fasilitator/Pimpinan/Developer Eksternal)"
                     },
                     "404": {
                         "description": "Role tidak ditemukan"
@@ -4493,7 +4493,7 @@
                     "Role & Permission"
                 ],
                 "summary": "Hapus role",
-                "description": "Menghapus role dari sistem. Role `Administrator` dan `Fasilitator` tidak bisa dihapus demi keamanan sistem.",
+                "description": "Menghapus role dari sistem. Role `Koordinator` dan `Fasilitator` tidak bisa dihapus demi keamanan sistem.",
                 "operationId": "75ecc88582944afe06f34bfb6d62acff",
                 "parameters": [
                     {
@@ -4531,7 +4531,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Mencoba menghapus role Administrator atau Fasilitator"
+                        "description": "Mencoba menghapus role Koordinator atau Fasilitator"
                     },
                     "404": {
                         "description": "Role tidak ditemukan"
@@ -4653,7 +4653,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "422": {
                         "description": "Validasi gagal — nama sudah dipakai"
@@ -4710,7 +4710,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "404": {
                         "description": "Permission tidak ditemukan"
@@ -4810,7 +4810,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "404": {
                         "description": "Role tidak ditemukan"
@@ -4912,7 +4912,7 @@
                         "description": "Token tidak valid"
                     },
                     "403": {
-                        "description": "Bukan Administrator"
+                        "description": "Bukan Koordinator"
                     },
                     "404": {
                         "description": "Pengguna tidak ditemukan"
@@ -4934,7 +4934,7 @@
                     "Manajemen User"
                 ],
                 "summary": "Ambil semua pengguna",
-                "description": "Mengembalikan daftar semua pengguna sistem dengan role masing-masing. Mendukung pencarian dan filter berdasarkan role. Khusus Administrator.",
+                "description": "Mengembalikan daftar semua pengguna sistem dengan role masing-masing. Mendukung pencarian dan filter berdasarkan role. Khusus Koordinator.",
                 "operationId": "7208c29037df2b8bb02499ba39ed8a78",
                 "parameters": [
                     {
@@ -5002,7 +5002,7 @@
                                                     },
                                                     "role_utama": {
                                                         "type": "string",
-                                                        "example": "Administrator"
+                                                        "example": "Koordinator"
                                                     },
                                                     "created_at": {
                                                         "type": "string",
@@ -5044,7 +5044,7 @@
                     "Manajemen User"
                 ],
                 "summary": "Buat akun pengguna baru",
-                "description": "Membuat akun pengguna baru dan langsung assign role. Satu akun bisa memiliki lebih dari satu role (Role Switcher). Khusus Administrator.",
+                "description": "Membuat akun pengguna baru dan langsung assign role. Satu akun bisa memiliki lebih dari satu role (Role Switcher). Khusus Koordinator.",
                 "operationId": "262eb5ca1fdea354023c0a8870442c1e",
                 "requestBody": {
                     "required": true,
@@ -5074,7 +5074,7 @@
                                         "example": "password123"
                                     },
                                     "roles": {
-                                        "description": "Array nama role. Bisa lebih dari satu: [\"Administrator\", \"Fasilitator\"]",
+                                        "description": "Array nama role. Bisa lebih dari satu: [\"Koordinator\", \"Fasilitator\"]",
                                         "type": "array",
                                         "items": {
                                             "type": "string"
@@ -5180,7 +5180,7 @@
                                                 },
                                                 "role_utama": {
                                                     "type": "string",
-                                                    "example": "Administrator"
+                                                    "example": "Koordinator"
                                                 },
                                                 "created_at": {
                                                     "type": "string",
@@ -5316,7 +5316,7 @@
                     "Manajemen User"
                 ],
                 "summary": "Hapus pengguna",
-                "description": "Menghapus akun pengguna secara permanen. Administrator tidak bisa menghapus akunnya sendiri.",
+                "description": "Menghapus akun pengguna secara permanen. Koordinator tidak bisa menghapus akunnya sendiri.",
                 "operationId": "b3d28da5dc9de7fc1bd425f93b54ff7b",
                 "parameters": [
                     {
@@ -5420,15 +5420,15 @@
         },
         {
             "name": "Manajemen User",
-            "description": "Kelola akun pengguna sistem. Khusus Administrator dengan permission `manajemen.user`."
+            "description": "Kelola akun pengguna sistem. Khusus Koordinator dengan permission `manajemen.user`."
         },
         {
             "name": "Role & Permission",
-            "description": "Kelola role dan permission sistem RBAC. Khusus Administrator dengan permission `kelola.role-permission`."
+            "description": "Kelola role dan permission sistem RBAC. Khusus Koordinator dengan permission `kelola.role-permission`."
         },
         {
             "name": "API Key & Log",
-            "description": "Kelola API Key dan lihat log aktivitas sistem. Khusus Administrator dengan permission `kelola.api-key`."
+            "description": "Kelola API Key dan lihat log aktivitas sistem. Khusus Koordinator dengan permission `kelola.api-key`."
         },
         {
             "name": "Developer Eksternal",
@@ -5436,7 +5436,7 @@
         },
         {
             "name": "Interop",
-            "description": "**Endpoint khusus untuk platform Sampah Kita Jabar (DLH Provinsi Jawa Barat).**\n\nMenggunakan **API Key Token** (bukan Auth Token biasa) dengan ability `sampah:read` atau `pengelolaan:read`.\n\nRate limit: **60 request per menit**.\n\nCara mendapatkan API Key: hubungi Administrator sistem Kang Raling atau gunakan endpoint `POST /api/v1/developer/api-keys`."
+            "description": "**Endpoint khusus untuk platform Sampah Kita Jabar (DLH Provinsi Jawa Barat).**\n\nMenggunakan **API Key Token** (bukan Auth Token biasa) dengan ability `sampah:read` atau `pengelolaan:read`.\n\nRate limit: **60 request per menit**.\n\nCara mendapatkan API Key: hubungi Koordinator sistem Kang Raling atau gunakan endpoint `POST /api/v1/developer/api-keys`."
         },
         {
             "name": "Jenis Pengelolaan",

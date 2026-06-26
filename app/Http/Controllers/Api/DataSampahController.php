@@ -16,7 +16,7 @@ class DataSampahController extends Controller
     #[OA\Get(
         path: '/data-sampah',
         summary: 'Ambil semua data sampah (dashboard)',
-        description: 'Mengembalikan daftar data sampah untuk dashboard internal. Fasilitator hanya melihat data miliknya sendiri, Administrator melihat semua data. Mendukung filter status, desa, dan rentang tanggal.',
+        description: 'Mengembalikan daftar data sampah untuk dashboard internal. Fasilitator hanya melihat data miliknya sendiri, Koordinator melihat semua data. Mendukung filter status, desa, dan rentang tanggal.',
         tags: ['Data Sampah'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -45,7 +45,7 @@ class DataSampahController extends Controller
         $user  = $request->user();
         $query = DataSampah::with(['desa', 'user', 'jenisSampah', 'verifiedBy', 'pengelolaans.jenisPengelolaan']);
 
-        if ($user->hasRole('Fasilitator') && !$user->hasRole('Administrator')) {
+        if ($user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')) {
             $query->where('user_id', $user->id);
         }
 
@@ -259,7 +259,7 @@ class DataSampahController extends Controller
         $user = $request->user();
         $data = DataSampah::with(['desa', 'user', 'jenisSampah', 'verifiedBy', 'pengelolaans.jenisPengelolaan'])->findOrFail($id);
 
-        if ($user->hasRole('Fasilitator') && !$user->hasRole('Administrator') && $data->user_id !== $user->id) {
+        if ($user->hasRole('Fasilitator') && !$user->hasRole('Koordinator') && $data->user_id !== $user->id) {
             return response()->json(['status' => false, 'message' => 'Akses ditolak.'], 403);
         }
         return response()->json(['status' => true, 'data' => $data]);
@@ -268,7 +268,7 @@ class DataSampahController extends Controller
     #[OA\Post(
         path: '/data-sampah',
         summary: 'Input data sampah baru',
-        description: "Menambahkan data volume sampah baru. Data otomatis berstatus `pending` dan `is_public: false` sampai diverifikasi oleh Administrator.",
+        description: "Menambahkan data volume sampah baru. Data otomatis berstatus `pending` dan `is_public: false` sampai diverifikasi oleh Koordinator.",
         tags: ['Data Sampah'],
         security: [['bearerAuth' => []]],
         requestBody: new OA\RequestBody(
@@ -346,7 +346,7 @@ class DataSampahController extends Controller
         $user = $request->user();
         $data = DataSampah::findOrFail($id);
 
-        if ($user->hasRole('Fasilitator') && !$user->hasRole('Administrator')) {
+        if ($user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')) {
             if ($data->user_id !== $user->id) return response()->json(['status' => false, 'message' => 'Akses ditolak.'], 403);
             if ($data->isVerified()) return response()->json(['status' => false, 'message' => 'Data verified tidak bisa diubah.'], 422);
         }
@@ -396,7 +396,7 @@ class DataSampahController extends Controller
         $user = $request->user();
         $data = DataSampah::findOrFail($id);
 
-        if ($user->hasRole('Fasilitator') && !$user->hasRole('Administrator')) {
+        if ($user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')) {
             if ($data->user_id !== $user->id) return response()->json(['status' => false, 'message' => 'Akses ditolak.'], 403);
             if ($data->isVerified()) return response()->json(['status' => false, 'message' => 'Data verified tidak bisa dihapus.'], 422);
         }

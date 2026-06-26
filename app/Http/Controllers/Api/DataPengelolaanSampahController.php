@@ -16,7 +16,7 @@ class DataPengelolaanSampahController extends Controller
 #[OA\Get(
         path: '/data-pengelolaan',
         summary: 'Ambil semua data pengelolaan sampah',
-        description: 'Mengembalikan daftar data pengelolaan sampah. Fasilitator hanya melihat data miliknya sendiri. Administrator melihat semua data. Mendukung pagination.',
+        description: 'Mengembalikan daftar data pengelolaan sampah. Fasilitator hanya melihat data miliknya sendiri. Koordinator melihat semua data. Mendukung pagination.',
         tags: ['Data Pengelolaan'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -66,7 +66,7 @@ class DataPengelolaanSampahController extends Controller
             'user'
         ]);
 
-        if ($user->hasRole('Fasilitator') && !$user->hasRole('Administrator')) {
+        if ($user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')) {
             $query->where('user_id', $user->id);
         }
 
@@ -112,7 +112,7 @@ class DataPengelolaanSampahController extends Controller
         ])->findOrFail($id);
 
         if (
-            $user->hasRole('Fasilitator') && !$user->hasRole('Administrator')
+            $user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')
             && $data->user_id !== $user->id
         ) {
             return response()->json(['status' => false, 'message' => 'Akses ditolak.'], 403);
@@ -178,7 +178,7 @@ class DataPengelolaanSampahController extends Controller
         // Pengecekan Hak Akses Fasilitator
         $user = $request->user();
         if (
-            $user->hasRole('Fasilitator') && !$user->hasRole('Administrator')
+            $user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')
             && $dataSampah->user_id !== $user->id
         ) {
             return response()->json(['status' => false, 'message' => 'Akses ditolak.'], 403);
@@ -254,7 +254,7 @@ class DataPengelolaanSampahController extends Controller
         $data = DataPengelolaanSampah::with('dataSampah')->findOrFail($id);
 
         if (
-            $user->hasRole('Fasilitator') && !$user->hasRole('Administrator')
+            $user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')
             && $data->user_id !== $user->id
         ) {
             return response()->json(['status' => false, 'message' => 'Akses ditolak.'], 403);
@@ -322,7 +322,7 @@ class DataPengelolaanSampahController extends Controller
         $data = DataPengelolaanSampah::findOrFail($id);
 
         if (
-            $user->hasRole('Fasilitator') && !$user->hasRole('Administrator')
+            $user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')
             && $data->user_id !== $user->id
         ) {
             return response()->json(['status' => false, 'message' => 'Akses ditolak.'], 403);

@@ -19,9 +19,9 @@ class DashboardController extends Controller
         // 1. Siapkan Query Dasar untuk Data Sampah
         $querySampah = DataSampah::query();
 
-        // Jika user adalah Fasilitator murni (bukan Administrator), 
+        // Jika user adalah Fasilitator murni (bukan Koordinator), 
         // maka dia HANYA boleh melihat hitungan data sampahnya sendiri.
-        if ($user->hasRole('Fasilitator') && !$user->hasRole('Administrator')) {
+        if ($user->hasRole('Fasilitator') && !$user->hasRole('Koordinator')) {
             $querySampah->where('user_id', $user->id);
         }
 
@@ -52,7 +52,7 @@ class DashboardController extends Controller
 
         // 5. Data sampah pending terbaru (Khusus Admin)
         $pendingTerbaru = [];
-        if ($user->hasRole('Administrator')) {
+        if ($user->hasRole('Koordinator')) {
             $pendingTerbaru = DataSampah::where('status', 'pending')
                 ->with(['desa', 'user', 'jenisSampah'])
                 ->latest()

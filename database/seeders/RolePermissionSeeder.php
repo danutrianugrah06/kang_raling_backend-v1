@@ -47,9 +47,9 @@ class RolePermissionSeeder extends Seeder
         }
 
         // =============================================
-        // ROLE: Administrator
+        // ROLE: Koordinator
         // =============================================
-        $roleAdmin = Role::firstOrCreate(['name' => 'Administrator', 'guard_name' => 'web']);
+        $roleAdmin = Role::firstOrCreate(['name' => 'Koordinator', 'guard_name' => 'web']);
         $roleAdmin->syncPermissions([
             'verifikasi.data-sampah',
             'manajemen.user',
@@ -118,7 +118,7 @@ class RolePermissionSeeder extends Seeder
                 'password' => Hash::make('admin123'),
             ]
         );
-        $superAdmin->syncRoles(['Administrator', 'Fasilitator']);
+        $superAdmin->syncRoles(['Koordinator', 'Fasilitator']);
 
         $pimpinan = User::firstOrCreate(
             ['email' => 'pimpinan@kangraling.id'],

@@ -232,7 +232,7 @@ class DesaController extends Controller
     #[OA\Delete(
         path: '/desas/{id}',
         summary: 'Hapus desa binaan',
-        description: 'Menghapus desa binaan secara permanen. Khusus Administrator dengan permission `kelola.desa-binaan`.',
+        description: 'Menghapus desa binaan secara permanen. Khusus Koordinator dengan permission `kelola.desa-binaan`.',
         tags: ['Desa Binaan'],
         security: [['bearerAuth' => []]],
         parameters: [

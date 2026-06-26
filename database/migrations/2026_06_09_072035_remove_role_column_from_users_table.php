@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['administrator', 'fasilitator'])
+            $table->enum('role', ['Koordinator', 'fasilitator'])
                   ->default('fasilitator')
                   ->after('password');
         });

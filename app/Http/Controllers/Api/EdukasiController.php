@@ -246,7 +246,7 @@ class EdukasiController extends Controller
 
         if (
             $request->user()->hasRole('Fasilitator')
-            && !$request->user()->hasRole('Administrator')
+            && !$request->user()->hasRole('Koordinator')
             && $edukasi->user_id !== $request->user()->id
         ) {
             return response()->json(['message' => 'Akses ditolak.'], 403);
@@ -335,7 +335,7 @@ class EdukasiController extends Controller
 
         if (
             $request->user()->hasRole('Fasilitator')
-            && !$request->user()->hasRole('Administrator')
+            && !$request->user()->hasRole('Koordinator')
             && $edukasi->user_id !== $request->user()->id
         ) {
             return response()->json(['message' => 'Akses ditolak.'], 403);

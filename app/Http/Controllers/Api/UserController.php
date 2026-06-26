@@ -16,7 +16,7 @@ class UserController extends Controller
 #[OA\Get(
         path: '/users',
         summary: 'Ambil semua pengguna',
-        description: 'Mengembalikan daftar semua pengguna sistem dengan role masing-masing. Mendukung pencarian dan filter berdasarkan role. Khusus Administrator.',
+        description: 'Mengembalikan daftar semua pengguna sistem dengan role masing-masing. Mendukung pencarian dan filter berdasarkan role. Khusus Koordinator.',
         tags: ['Manajemen User'],
         security: [['bearerAuth' => []]],
         parameters: [
@@ -40,7 +40,7 @@ class UserController extends Controller
                                     new OA\Property(property: 'nama', type: 'string', example: 'Danu Tri Anugrah'),
                                     new OA\Property(property: 'email', type: 'string', example: 'danu@kangraling.id'),
                                     new OA\Property(property: 'roles', type: 'array', items: new OA\Items(type: 'object')),
-                                    new OA\Property(property: 'role_utama', type: 'string', example: 'Administrator'),
+                                    new OA\Property(property: 'role_utama', type: 'string', example: 'Koordinator'),
                                     new OA\Property(property: 'created_at', type: 'string', format: 'date-time'),
                                 ],
                                 type: 'object'
@@ -118,7 +118,7 @@ class UserController extends Controller
                                 new OA\Property(property: 'nama', type: 'string', example: 'Danu Tri Anugrah'),
                                 new OA\Property(property: 'email', type: 'string', example: 'danu@kangraling.id'),
                                 new OA\Property(property: 'roles', type: 'array', items: new OA\Items(type: 'object')),
-                                new OA\Property(property: 'role_utama', type: 'string', example: 'Administrator'),
+                                new OA\Property(property: 'role_utama', type: 'string', example: 'Koordinator'),
                                 new OA\Property(property: 'created_at', type: 'string', format: 'date-time'),
                             ]
                         ),
@@ -154,7 +154,7 @@ class UserController extends Controller
     #[OA\Post(
         path: '/users',
         summary: 'Buat akun pengguna baru',
-        description: 'Membuat akun pengguna baru dan langsung assign role. Satu akun bisa memiliki lebih dari satu role (Role Switcher). Khusus Administrator.',
+        description: 'Membuat akun pengguna baru dan langsung assign role. Satu akun bisa memiliki lebih dari satu role (Role Switcher). Khusus Koordinator.',
         tags: ['Manajemen User'],
         security: [['bearerAuth' => []]],
         requestBody: new OA\RequestBody(
@@ -170,7 +170,7 @@ class UserController extends Controller
                         type: 'array',
                         items: new OA\Items(type: 'string'),
                         example: ['Fasilitator'],
-                        description: 'Array nama role. Bisa lebih dari satu: ["Administrator", "Fasilitator"]'
+                        description: 'Array nama role. Bisa lebih dari satu: ["Koordinator", "Fasilitator"]'
                     ),
                 ]
             )
@@ -304,7 +304,7 @@ class UserController extends Controller
      #[OA\Delete(
         path: '/users/{id}',
         summary: 'Hapus pengguna',
-        description: 'Menghapus akun pengguna secara permanen. Administrator tidak bisa menghapus akunnya sendiri.',
+        description: 'Menghapus akun pengguna secara permanen. Koordinator tidak bisa menghapus akunnya sendiri.',
         tags: ['Manajemen User'],
         security: [['bearerAuth' => []]],
         parameters: [

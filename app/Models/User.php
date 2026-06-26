@@ -34,7 +34,7 @@ class User extends Authenticatable
     // Helper methods via Spatie
     public function isAdmin(): bool
     {
-        return $this->hasRole('Administrator');
+        return $this->hasRole('Koordinator');
     }
 
     public function isFasilitator(): bool

@@ -31,7 +31,7 @@ class AuthController extends Controller
                 'permissions' => $role->permissions->pluck('name'),
             ]),
             'permissions'            => $allPermissions,
-            'is_admin'               => $user->hasRole('Administrator'),
+            'is_admin'               => $user->hasRole('Koordinator'),
             'is_fasilitator'         => $user->hasRole('Fasilitator'),
             'is_pimpinan'            => $user->hasRole('Pimpinan'),
             'is_developer_eksternal' => $user->hasRole('Developer Eksternal'),
